@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>GT Team 006 Final Project </title>
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+</head>
+<body>
+
+  <h1> Optidule </h1>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-4">
+        <!-- First Input: Dropdown for maxPrompt -->
+        <div class="mb-3">
+          <label for="maxPrompt" class="form-label">What is the MAXIMUM number of credit hours you are comfortable taking in one semester?</label>
+          <select class="form-select" id="maxPrompt">
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
+            <option value="11">11</option>
+            <option value="12">12</option>
+            <option value="13">13</option>
+            <option value="14">14</option>
+            <option value="15">15</option>
+            <option value="16">16</option>
+            <option value="17">17</option>
+            <option value="18">18</option>
+            <option value="19">19</option>
+            <option value="20">20</option>
+            <option value="21">21</option>
+          </select>
+        </div>
+
+        <!-- Second Input: Dropdown for minPrompt -->
+        <div class="mb-3">
+          <label for="minPrompt" class="form-label">What is the MINIMUM number of credit hours you are comfortable taking in one semester?:</label>
+          <select class="form-select" id="minPrompt">
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
+            <option value="11">11</option>
+            <option value="12">12</option>
+            <option value="13">13</option>
+            <option value="14">14</option>
+            <option value="15">15</option>
+            <option value="16">16</option>
+            <option value="17">17</option>
+            <option value="18">18</option>
+            <option value="19">19</option>
+            <option value="20">20</option>
+            <option value="21">21</option>
+          </select>
+        </div>
+
+        <!-- Third Input: Dropdown for summerPrompt -->
+        <div class="mb-3">
+          <label for="summerPrompt" class="form-label">Are you able to take summer courses?:</label>
+          <select class="form-select" id="summerPrompt">
+            <option value="yes">Yes</option>
+            <option value="online">Yes, but only online</option>
+            <option value="once">Yes, but only once</option>
+            <option value="twice">Yes, but only twice</option>
+            <option value="thrice">Yes, but only three times</option>
+            <option value="no">No</option>
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label for="coursePrompt" class="form-label">Select your classes:</label>
+          <select class="form-control" id="coursePrompt">
+          <!-- FIRST CLASS LOADS ON DOM CONTENT -->
+          </select>
+          <div id="newCourseClick"></div>
+        </div>
+
+        <div class="mb-3">
+          <button id="addSelect" class="btn btn-secondary">
+            Add Class
+          </button>
+        </div>
+
+        <div class="mb-3">
+          <button id="seeData">See Data</button>
+        </div>
+      
+      </div>
+
+      <!-- Second Column -->
+      <div class="col-lg-8">
+        <div id="bar-chart"></div>
+      </div>
+        
+  </div>
+</body>
+
+<!-- jQuery for dynamic text boxes, Bootstrap JS -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+<script src="https://d3js.org/d3.v5.min.js"></script>
+
+<script type="text/javascript">
+
+  const classes_url = "../static/classes.json"
+  console.log("testing")
+
+  // Loads in first course after DOM loads in
+
+  d3.json(classes_url).then(function(data){
+
+    classes = data;
+
+    var courseBox = document.getElementById("coursePrompt")
+
+    // Loops through courses to create dropdown
+    for(var i = 0; i < classes.length; i++) {
+      var course1 = document.createElement("option");
+      course1.value = classes[i];
+      course1.text = classes[i];
+      courseBox.appendChild(course1);
+    };
+
+    // document.addEventListener("DOMContentLoaded", function() {
+    //   console.log("testing")
+      
+    //   var courseBox = document.getElementById("coursePrompt")
+
+    //   // Loops through courses to create dropdown
+    //   for(var i = 0; i < classes.length; i++) {
+    //     var course1 = document.createElement("option");
+    //     course1.value = classes[i];
+    //     course1.text = classes[i];
+    //     console.log(data[i])
+    //     // console.log(course1.txt)
+    //     courseBox.appendChild(course1);
+    //   };
+    // });
+
+
+    // To limit to 8 courses inputted
+    var courseCount = 2;
+    var MAX_CLASSES = 8;
+
+    // Function to dynamically add select box
+    function addSelectionBox() {
+
+      // Check if reached max
+      if(courseCount >= MAX_CLASSES) {
+        return;
+      }
+
+      // Increment counter
+      courseCount++;
+
+      // Create select element 
+      var newCourse = document.createElement("select");
+
+      // Set attributes
+      newCourse.className = "form-control";
+
+      for(var i = 0; i < classes.length; i++) {
+        var course = document.createElement("option");
+        course.value = classes[i];
+        course.text = classes[i]; 
+        newCourse.appendChild(course);
+      }
+
+      document.getElementById("newCourseClick").appendChild(newCourse);
+
+    }
+
+    // When they add a new class
+    document.getElementById("addSelect")
+            .addEventListener("click", addSelectionBox);
+
+    // Dummy code for Plotly example
+    // Takes in min/max hours as values, and plots them when button is pressed
+    var minSelect = document.getElementById("minPrompt"); 
+    var maxSelect = document.getElementById("maxPrompt"); 
+    var seeDataBtn = document.getElementById("seeData"); 
+    var barChartDiv = document.getElementById("bar-chart");
+
+    // Initialize chart values 
+    var minVal = 0;
+    var maxVal = 0; 
+    // When dropdowns change, update values 
+    minSelect.addEventListener('change', function() { minVal = this.value; }); 
+    maxSelect.addEventListener('change', function() { maxVal = this.value; }); 
+    seeDataBtn.addEventListener('click', function() { 
+        // Input data 
+        var data2 = [{ 
+            x: ['Min Credits', 'Max Credits'], 
+            y: [minVal, maxVal], type: 'bar' 
+        }]; 
+        // Plotly layout
+        var layout = { title: 'Credit Range' };
+        // Display chart 
+        Plotly.newPlot(barChartDiv, data2, layout); 
+    }); 
+
+});
+  
+</script>
+
+<!-- </body> -->
+</html>
