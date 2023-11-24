@@ -1,0 +1,10 @@
+.jumbotron {
+    background-image: url("https://www.ready.gov/sites/default/files/2020-05/hurricane-ocean-waves.jpg");
+    background-size: cover;
+    height: 100%;
+    color: white;
+    text-shadow: 2px 2px 20px black;
+    font-weight: bolder;
+    padding-top: 10px !important;
+    padding-bottom: 10px !important;
+}
