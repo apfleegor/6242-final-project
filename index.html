@@ -86,17 +86,32 @@
           <!-- FIRST CLASS LOADS ON DOM CONTENT -->
           </select>
           <div id="newCourseClick"></div>
+        </div>
 
+        <div class="mb-3">
           <button id="addSelect" class="btn btn-secondary">
             Add Class
           </button>
         </div>
+
+        <div class="mb-3">
+          <button id="seeData">See Data</button>
+        </div>
+      
+      </div>
+
+      <!-- Second Column -->
+      <div class="col-lg-8">
+        <div id="bar-chart"></div>
+      </div>
+        
   </div>
 
-<!-- jQuery for dynamic text boxes and Bootstrap JS -->
+<!-- jQuery for dynamic text boxes, Bootstrap JS -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
 
 <script>
 
@@ -160,6 +175,31 @@
   // When they add a new class
   document.getElementById("addSelect")
           .addEventListener("click", addSelectionBox);
+
+  // Dummy code for Plotly example
+  // Takes in min/max hours as values, and plots them when button is pressed
+  var minSelect = document.getElementById("minPrompt"); 
+  var maxSelect = document.getElementById("maxPrompt"); 
+  var seeDataBtn = document.getElementById("seeData"); 
+  var barChartDiv = document.getElementById("bar-chart");
+
+  // Initialize chart values 
+  var minVal = 0;
+  var maxVal = 0; 
+  // When dropdowns change, update values 
+  minSelect.addEventListener('change', function() { minVal = this.value; }); 
+  maxSelect.addEventListener('change', function() { maxVal = this.value; }); 
+  seeDataBtn.addEventListener('click', function() { 
+      // Input data 
+      var data = [{ 
+          x: ['Min Credits', 'Max Credits'], 
+          y: [minVal, maxVal], type: 'bar' 
+      }]; 
+      // Plotly layout
+      var layout = { title: 'Credit Range' };
+      // Display chart 
+      Plotly.newPlot(barChartDiv, data, layout); 
+  }); 
   
 </script>
 
