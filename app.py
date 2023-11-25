@@ -6,6 +6,7 @@ app = Flask(__name__)
 # create root route
 @app.route("/")
 def home():
+    # note: can send data to index.html through this function
     return render_template("index.html")
 
 if __name__ == "__main__":
