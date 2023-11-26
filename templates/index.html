@@ -111,10 +111,6 @@
         </div>
 
         <div class="mb-3">
-          <button id="seeData">See Data</button>
-        </div>
-
-        <div class="mb-3">
           <button id="optimize">Get Schedule</button>
         </div>
       
@@ -145,6 +141,7 @@
       <!-- Second Column -->
       <div class="col-4">
         <div id="bar-chart"></div>
+        <p id="optimization_results">Opt results will be displayed here.</p>
       </div>
         
   </div>
@@ -162,7 +159,6 @@
   const classes_url = "../static/classes.json"
 
   // Loads in first course after DOM loads in
-
   d3.json(classes_url).then(function(data){
 
     classes = data;
@@ -177,24 +173,7 @@
       courseBox.appendChild(course1);
     };
 
-    // document.addEventListener("DOMContentLoaded", function() {
-    //   console.log("testing")
-      
-    //   var courseBox = document.getElementById("coursePrompt")
-
-    //   // Loops through courses to create dropdown
-    //   for(var i = 0; i < classes.length; i++) {
-    //     var course1 = document.createElement("option");
-    //     course1.value = classes[i];
-    //     course1.text = classes[i];
-    //     console.log(data[i])
-    //     // console.log(course1.txt)
-    //     courseBox.appendChild(course1);
-    //   };
-    // });
-
-
-    // To limit to 8 courses inputted
+    // To limit to 8 courses inputted (to be changed)
     var courseCount = 2;
     var MAX_CLASSES = 8;
 
@@ -226,17 +205,17 @@
 
     }
 
-    // When they add a new class
+    // ADDING A NEW CLASS
     document.getElementById("addSelect")
             .addEventListener("click", addSelectionBox);
 
+    //////////////////////////////////////////////
     
-
-    // Dummy code for Plotly example
+    // DUMMY CODE FOR PLOTLY
     // Takes in min/max hours as values, and plots them when button is pressed
     var minSelect = document.getElementById("minPrompt"); 
     var maxSelect = document.getElementById("maxPrompt"); 
-    var seeDataBtn = document.getElementById("seeData"); 
+    var seeDataBtn = document.getElementById("optimize"); 
     var barChartDiv = document.getElementById("bar-chart");
 
     // Initialize chart values 
@@ -257,12 +236,13 @@
         Plotly.newPlot(barChartDiv, data2, layout); 
     }); 
 
+    //////////////////////////////////////////////
 
+    // TABLE DESIGN FOR SCHEDULE
     // dynamically change number of rows in table
     numYears = document.getElementById("yearPrompt");
     table_select = document.getElementById("tableBody");
     numYears.addEventListener('change', function() {
-
 
       // delete all old rows
       old_rows = table_select.getElementsByTagName("tr")
@@ -314,9 +294,38 @@
     })
 
     
-
-});
+  });
   
+  //////////////////////////////////////////////
+
+  // OPTIMIZATION BACKEND - FLASK
+  
+    function optimize_from_html() {
+        // for now, this is using years instead of semesters (dummy)
+        var semesters = document.getElementById('yearPrompt').value;
+        var minHours = document.getElementById('minPrompt').value;
+        var maxHours = document.getElementById('maxPrompt').value;
+        // console.log(selectedNumber);
+        // Send the selected number to the server
+        fetch('/run_optimization', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+              'semesters' : semesters, 
+              'minHours' : minHours, 
+              'maxHours' : maxHours})
+        })
+        .then(response => response.json())
+        .then(data => {
+            // Update the result on the webpage
+            document.getElementById('optimization_results').innerText = 'RESULTS:\n' + data.opt_log;
+        })
+        .catch(error => console.error('Error:', error));
+    }
+    document.getElementById('optimize').addEventListener('click', optimize_from_html);
+
 </script>
 
 <!-- </body> -->
