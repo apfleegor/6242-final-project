@@ -83,6 +83,18 @@
             <option value="no">No</option>
           </select>
         </div>
+          <label for="yearPrompt" class="form-label">How many years do you want to take?</label>
+          <select class="form-select" id="yearPrompt">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+          </select>
+        <div class="mb-3">
+
+
+        </div>
 
         <div class="mb-3">
           <label for="coursePrompt" class="form-label">Select your classes:</label>
@@ -105,7 +117,7 @@
       </div>
 
       <div class="col-6">
-        <table class="table">
+        <table class="table", id="schedule">
           <thead>
             <tr>
               <th scope="col">Year</th>
@@ -115,9 +127,9 @@
             </tr>
           </thead>
           <tbody>
-            <tr>
+            <!-- <tr onclick="showHideRow('hidden_row1');">
               <th scope="row">2024-2025</th>
-              <td>ISYE 6501</td>
+              <td>ISYE 6501 <br> test </td>
               <td>ISYE 6414</td>
               <td>CSE 6040</td>
             </tr>
@@ -132,7 +144,7 @@
               <td>MGT 6203</td>
               <td>CS 7406</td>
               <td>Something else</td>
-            </tr>
+            </tr> -->
           </tbody>
         </table>
       </div>
@@ -250,6 +262,29 @@
         // Display chart 
         Plotly.newPlot(barChartDiv, data2, layout); 
     }); 
+
+
+    // dynamically change number of rows in table
+    numYears = document.getElementById("yearPrompt");
+    table_select = document.getElementById("schedule");
+    numYears.addEventListener('change', function() {
+
+      let year_list = ['2024-2025', '2025-2026', '2026-2027', '2027-2028', '2028-2029']
+      for (let i=0; i<this.value; i++) {
+        // create new row
+        var row = table_select.insertRow(-1);
+        // console.log(year_list[i])
+
+        // create cells for the row
+        var cell1 = row.insertCell(0);
+        var fall = row.insertCell(1);
+        var spring = row.insertCell(2);
+        var summer = row.insertCell(3);
+
+        // insert data into the year column
+        cell1.innerHTML = year_list[i]
+      }
+    });
 
 });
   
