@@ -96,7 +96,7 @@
 
         </div>
 
-        <div class="mb-3">
+        <div class="mb-3", id="courseSelection">
           <label for="coursePrompt" class="form-label">Select your classes:</label>
           <select class="form-control" id="coursePrompt">
           <!-- FIRST CLASS LOADS ON DOM CONTENT -->
@@ -130,25 +130,14 @@
               <th scope="col">Summer</th>
             </tr>
           </thead>
-          <tbody>
-            <!-- <tr onclick="showHideRow('hidden_row1');">
-              <th scope="row">2024-2025</th>
-              <td>ISYE 6501 <br> test </td>
-              <td>ISYE 6414</td>
-              <td>CSE 6040</td>
-            </tr>
+          <tbody id="tableBody">
             <tr>
-              <th scope="row">2025-2026</th>
-              <td>MGT 8803</td>
-              <td>ISYE 6669</td>
-              <td>CSE 6242</td>
+              <!-- this is just the base -->
+              <td>2024-2025</td>
+              <td></td>
+              <td></td>
+              <td></td>
             </tr>
-            <tr>
-              <th scope="row">2026-2027</th>
-              <td>MGT 6203</td>
-              <td>CS 7406</td>
-              <td>Something else</td>
-            </tr> -->
           </tbody>
         </table>
       </div>
@@ -241,10 +230,7 @@
     document.getElementById("addSelect")
             .addEventListener("click", addSelectionBox);
 
-    // document.getElementById("optimize")
-    //         .addEventListener("click", function() {
-
-    //         })
+    
 
     // Dummy code for Plotly example
     // Takes in min/max hours as values, and plots them when button is pressed
@@ -274,15 +260,21 @@
 
     // dynamically change number of rows in table
     numYears = document.getElementById("yearPrompt");
-    table_select = document.getElementById("schedule");
+    table_select = document.getElementById("tableBody");
     numYears.addEventListener('change', function() {
+
+
+      // delete all old rows
+      old_rows = table_select.getElementsByTagName("tr")
+      for (var i = 0, len = old_rows.length; i != len; ++i) {
+        old_rows[0].parentNode.removeChild(old_rows[0]);
+      }
 
       let year_list = ['2024-2025', '2025-2026', '2026-2027', '2027-2028', '2028-2029']
       for (let i=0; i<this.value; i++) {
         // create new row
         var row = table_select.insertRow(-1);
         row.id = year_list[i]
-        // console.log(year_list[i])
 
         // create cells for the row
         var cell1 = row.insertCell(0);
@@ -295,9 +287,58 @@
       }
     });
 
+    // get the courses from the selection into the schedule
+    document.getElementById("optimize")
+            .addEventListener("click", function() {
+      // working on getting info from course selection
+      course_div = document.getElementById("courseSelection")
+      options = course_div.getElementsByTagName("select")
+
+      data_cell = table_select.getElementsByTagName("td")
+
+      // create string for classes
+      current_str = ""
+
+      // put first course into the string
+      current_str = current_str.concat("", options[0].value)
+
+      for (let i=0; i<options.length; i++) {
+        console.log(options[i].value)
+
+        if (i>0) {current_str = current_str.concat("<br>", options[i].value)}
+
+        // course_list.push(options[i].value)
+      }
+
+      data_cell[1].innerHTML = current_str
+    })
+
+    
+
 });
   
 </script>
 
 <!-- </body> -->
 </html>
+
+
+
+<!-- <tr onclick="showHideRow('hidden_row1');">
+              <th scope="row">2024-2025</th>
+              <td>ISYE 6501 <br> test </td>
+              <td>ISYE 6414</td>
+              <td>CSE 6040</td>
+            </tr>
+            <tr>
+              <th scope="row">2025-2026</th>
+              <td>MGT 8803</td>
+              <td>ISYE 6669</td>
+              <td>CSE 6242</td>
+            </tr>
+            <tr>
+              <th scope="row">2026-2027</th>
+              <td>MGT 6203</td>
+              <td>CS 7406</td>
+              <td>Something else</td>
+            </tr> -->
