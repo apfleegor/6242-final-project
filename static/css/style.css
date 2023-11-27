@@ -1,5 +1,5 @@
 .jumbotron {
-    background-image: url("https://www.ready.gov/sites/default/files/2020-05/hurricane-ocean-waves.jpg");
+    background-image: url("https://t4.ftcdn.net/jpg/03/16/36/59/360_F_316365913_WKVKZW7gzsqqhkx4PgGyu0rArj5GykHK.jpg");
     background-size: cover;
     height: 100%;
     color: white;
@@ -7,4 +7,29 @@
     font-weight: bolder;
     padding-top: 10px !important;
     padding-bottom: 10px !important;
+}
+
+.table {
+    border-collapse: collapse;
+    width: 100%;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+}
+
+.table thead tr {
+    background-color: #004085; /* A dark shade for contrast */
+    color: white;
+    text-align: left;
+}
+
+.table tbody td {
+    padding: 12px 15px;
+    text-align: left;
+}
+
+.table tbody tr:nth-child(odd) {
+    background-color: #f2f2f2; /* Light shade for every other row */
+}
+
+.table tbody tr:hover {
+    background-color: #ddd; /* A light color on hover */
 }
