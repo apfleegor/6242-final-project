@@ -13,7 +13,7 @@ pd.options.mode.chained_assignment = None
 app = Flask(__name__)
 
 # create root route
-@app.route("/")
+@app.route('/')
 def home():
     # note: can send data to index.html through this function
     return render_template("index.html")
@@ -23,17 +23,17 @@ def run_optimization():
     
     # Get parameters from the request (assuming they are in JSON format)
     data = request.get_json()
-    print('Received data:', data)
+    # print('Received data:', data)
     semesters = int(data.get('semesters'))
     minHours = int(data.get('minHours'))
     maxHours = int(data.get('maxHours'))
-    print(semesters, minHours, maxHours)
+    # print(semesters, minHours, maxHours)
 
-    df = pd.read_csv('ISYE_SAMPLE.csv')
+    df = pd.read_csv('data/ISYE_SAMPLE.csv')
+    # print(df)
     df_fill=fill_preds(fill_pre(df))
     # get opt log, a string (for now, some kind of dict later?)
     opt_log = optimize(semesters, minHours, maxHours, df_fill)
-    print(opt_log)
     # we can change this so that we can retrieve {sem1: {...}} or more creative 
     # formats to customize retrieval
     return jsonify({"opt_log":opt_log})
