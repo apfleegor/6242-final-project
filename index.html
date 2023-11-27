@@ -117,7 +117,7 @@
       </div>
 
       <div class="col-6">
-        <table class="table", id="schedule">
+        <table class="table table-bordered", id="schedule">
           <thead>
             <tr>
               <th scope="col">Year</th>
@@ -188,7 +188,7 @@
       // Increment counter
       courseCount++;
 
-      // Create select element 
+      // Create select element
       var newCourse = document.createElement("select");
 
       // Set attributes
@@ -197,7 +197,7 @@
       for(var i = 0; i < classes.length; i++) {
         var course = document.createElement("option");
         course.value = classes[i];
-        course.text = classes[i]; 
+        course.text = classes[i];
         newCourse.appendChild(course);
       }
 
@@ -210,31 +210,31 @@
             .addEventListener("click", addSelectionBox);
 
     //////////////////////////////////////////////
-    
+
     // DUMMY CODE FOR PLOTLY
     // Takes in min/max hours as values, and plots them when button is pressed
-    var minSelect = document.getElementById("minPrompt"); 
-    var maxSelect = document.getElementById("maxPrompt"); 
-    var seeDataBtn = document.getElementById("optimize"); 
+    var minSelect = document.getElementById("minPrompt");
+    var maxSelect = document.getElementById("maxPrompt");
+    var seeDataBtn = document.getElementById("optimize");
     var barChartDiv = document.getElementById("bar-chart");
 
-    // Initialize chart values 
+    // Initialize chart values
     var minVal = 0;
-    var maxVal = 0; 
-    // When dropdowns change, update values 
-    minSelect.addEventListener('change', function() { minVal = this.value; }); 
-    maxSelect.addEventListener('change', function() { maxVal = this.value; }); 
-    seeDataBtn.addEventListener('click', function() { 
-        // Input data 
-        var data2 = [{ 
-            x: ['Min Credits', 'Max Credits'], 
-            y: [minVal, maxVal], type: 'bar' 
-        }]; 
+    var maxVal = 0;
+    // When dropdowns change, update values
+    minSelect.addEventListener('change', function() { minVal = this.value; });
+    maxSelect.addEventListener('change', function() { maxVal = this.value; });
+    seeDataBtn.addEventListener('click', function() {
+        // Input data
+        var data2 = [{
+            x: ['Min Credits', 'Max Credits'],
+            y: [minVal, maxVal], type: 'bar'
+        }];
         // Plotly layout
         var layout = { title: 'Credit Range' };
-        // Display chart 
-        Plotly.newPlot(barChartDiv, data2, layout); 
-    }); 
+        // Display chart
+        Plotly.newPlot(barChartDiv, data2, layout);
+    });
 
     //////////////////////////////////////////////
 
@@ -293,13 +293,13 @@
       data_cell[1].innerHTML = current_str
     })
 
-    
+
   });
-  
+
   //////////////////////////////////////////////
 
   // OPTIMIZATION BACKEND - FLASK
-  
+
     function optimize_from_html() {
         // for now, this is using years instead of semesters (dummy)
         var semesters = document.getElementById('yearPrompt').value;
@@ -313,8 +313,8 @@
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-              'semesters' : semesters, 
-              'minHours' : minHours, 
+              'semesters' : semesters,
+              'minHours' : minHours,
               'maxHours' : maxHours})
         })
         .then(response => response.json())
