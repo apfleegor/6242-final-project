@@ -15,96 +15,103 @@
 
   <div class="container">
     <div class="row">
-      <div class="col-2">
+      <div class="col-12">
 
         <div class="card">
           <div class="card-header">
-            Inputs
+            <a data-toggle="collapse" href="#collapse-example" aria-expanded="true" aria-controls="collapse-example" id="heading-example" class="d-block">
+              <i class="fa-solid fa-chevron-down"></i>
+              Inputs
+            </a>
           </div>
+          <div id="collapse-example" class="collapse show" aria-labelledby="heading-example">
           <div class="card-body">
-            <!-- First Input: Dropdown for maxPrompt -->
-            <div class="mb-3">
-              <label for="maxPrompt" class="form-label">What is the MAXIMUM number of credit hours you are comfortable taking in one semester?</label>
-              <select class="form-select" id="maxPrompt">
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-                <option value="6">6</option>
-                <option value="7">7</option>
-                <option value="8">8</option>
-                <option value="9">9</option>
-                <option value="10">10</option>
-                <option value="11">11</option>
-                <option value="12">12</option>
-                <option value="13">13</option>
-                <option value="14">14</option>
-                <option value="15">15</option>
-                <option value="16">16</option>
-                <option value="17">17</option>
-                <option value="18">18</option>
-                <option value="19">19</option>
-                <option value="20">20</option>
-                <option value="21">21</option>
-              </select>
-            </div>
+            
+            <div class="row">
+              <!-- First Input: Dropdown for maxPrompt -->
+              <div class="col">
+                <label for="maxPrompt" class="form-label">What is the MAXIMUM number of credit hours you are comfortable taking in one semester?</label>
+                <select class="form-select" id="maxPrompt">
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                  <option value="6">6</option>
+                  <option value="7">7</option>
+                  <option value="8">8</option>
+                  <option value="9">9</option>
+                  <option value="10">10</option>
+                  <option value="11">11</option>
+                  <option value="12">12</option>
+                  <option value="13">13</option>
+                  <option value="14">14</option>
+                  <option value="15">15</option>
+                  <option value="16">16</option>
+                  <option value="17">17</option>
+                  <option value="18">18</option>
+                  <option value="19">19</option>
+                  <option value="20">20</option>
+                  <option value="21">21</option>
+                </select>
+              </div>
 
-            <!-- Second Input: Dropdown for minPrompt -->
-            <div class="mb-3">
-              <label for="minPrompt" class="form-label">What is the MINIMUM number of credit hours you are comfortable taking in one semester?:</label>
-              <select class="form-select" id="minPrompt">
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-                <option value="6">6</option>
-                <option value="7">7</option>
-                <option value="8">8</option>
-                <option value="9">9</option>
-                <option value="10">10</option>
-                <option value="11">11</option>
-                <option value="12">12</option>
-                <option value="13">13</option>
-                <option value="14">14</option>
-                <option value="15">15</option>
-                <option value="16">16</option>
-                <option value="17">17</option>
-                <option value="18">18</option>
-                <option value="19">19</option>
-                <option value="20">20</option>
-                <option value="21">21</option>
-              </select>
-            </div>
+              <!-- Second Input: Dropdown for minPrompt -->
+              <div class="col">
+                <label for="minPrompt" class="form-label">What is the MINIMUM number of credit hours you are comfortable taking in one semester?:</label>
+                <select class="form-select" id="minPrompt">
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                  <option value="6">6</option>
+                  <option value="7">7</option>
+                  <option value="8">8</option>
+                  <option value="9">9</option>
+                  <option value="10">10</option>
+                  <option value="11">11</option>
+                  <option value="12">12</option>
+                  <option value="13">13</option>
+                  <option value="14">14</option>
+                  <option value="15">15</option>
+                  <option value="16">16</option>
+                  <option value="17">17</option>
+                  <option value="18">18</option>
+                  <option value="19">19</option>
+                  <option value="20">20</option>
+                  <option value="21">21</option>
+                </select>
+              </div>
 
-            <!-- Third Input: Dropdown for summerPrompt -->
-            <div class="mb-3">
-              <label for="summerPrompt" class="form-label">Are you able to take summer courses?:</label>
-              <select class="form-select" id="summerPrompt">
-                <option value="yes">Yes</option>
-                <!-- <option value="online">Yes, but only online</option>
-                <option value="once">Yes, but only once</option>
-                <option value="twice">Yes, but only twice</option>
-                <option value="thrice">Yes, but only three times</option> -->
-                <option value="no">No</option>
-              </select>
-            </div>
-              <label for="yearPrompt" class="form-label">How many semesters do you want to take?</label>
-              <select class="form-select" id="yearPrompt">
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-                <option value="6">6</option>
-                <option value="7">7</option>
-                <option value="8">8</option>
-                <option value="9">9</option>
-                <option value="10">10</option>
-                <option value="11">11</option>
-                <option value="12">12</option>
-              </select>
-            <div class="mb-3">
+              <!-- Third Input: Dropdown for summerPrompt -->
+              <div class="col">
+                <label for="summerPrompt" class="form-label">Are you able to take summer courses?:</label>
+                <select class="form-select" id="summerPrompt">
+                  <option value="yes">Yes</option>
+                  <!-- <option value="online">Yes, but only online</option>
+                  <option value="once">Yes, but only once</option>
+                  <option value="twice">Yes, but only twice</option>
+                  <option value="thrice">Yes, but only three times</option> -->
+                  <option value="no">No</option>
+                </select>
+              </div>
 
+              <div class="col">
+                <label for="yearPrompt" class="form-label">How many semesters do you want to take?</label>
+                <select class="form-select" id="yearPrompt">
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                  <option value="6">6</option>
+                  <option value="7">7</option>
+                  <option value="8">8</option>
+                  <option value="9">9</option>
+                  <option value="10">10</option>
+                  <option value="11">11</option>
+                  <option value="12">12</option>
+                </select>
+              </div>
 
             </div>
 
@@ -129,12 +136,14 @@
             </div>
           </div>
         </div>
+        </div>
         
       
       </div>
-
+    </div>
+    <div class="row">
       <!-- Second Column -->
-      <div class="col-6">
+      <div class="col-8">
         <div class="card">
           <div class="card-header">
             Schedule
@@ -186,6 +195,7 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
 <script src="https://d3js.org/d3.v5.min.js"></script>
+<script src="https://kit.fontawesome.com/2cf014cd27.js" crossorigin="anonymous"></script>
 
 <script type="text/javascript">
 
@@ -403,7 +413,7 @@
         // course_list.push(options[i].value)
       }
 
-      data_cell[1].innerHTML = current_str
+      data_cell[5].innerHTML = current_str
     })
 
     

@@ -33,3 +33,7 @@
 .table tbody tr:hover {
     background-color: #ddd; /* A light color on hover */
 }
+
+.card {
+    margin: 10px;
+}
