@@ -16,140 +16,165 @@
   <div class="container">
     <div class="row">
       <div class="col-2">
-        <!-- First Input: Dropdown for maxPrompt -->
-        <div class="mb-3">
-          <label for="maxPrompt" class="form-label">What is the MAXIMUM number of credit hours you are comfortable taking in one semester?</label>
-          <select class="form-select" id="maxPrompt">
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-            <option value="6">6</option>
-            <option value="7">7</option>
-            <option value="8">8</option>
-            <option value="9">9</option>
-            <option value="10">10</option>
-            <option value="11">11</option>
-            <option value="12">12</option>
-            <option value="13">13</option>
-            <option value="14">14</option>
-            <option value="15">15</option>
-            <option value="16">16</option>
-            <option value="17">17</option>
-            <option value="18">18</option>
-            <option value="19">19</option>
-            <option value="20">20</option>
-            <option value="21">21</option>
-          </select>
+
+        <div class="card">
+          <div class="card-header">
+            Inputs
+          </div>
+          <div class="card-body">
+            <!-- First Input: Dropdown for maxPrompt -->
+            <div class="mb-3">
+              <label for="maxPrompt" class="form-label">What is the MAXIMUM number of credit hours you are comfortable taking in one semester?</label>
+              <select class="form-select" id="maxPrompt">
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+                <option value="11">11</option>
+                <option value="12">12</option>
+                <option value="13">13</option>
+                <option value="14">14</option>
+                <option value="15">15</option>
+                <option value="16">16</option>
+                <option value="17">17</option>
+                <option value="18">18</option>
+                <option value="19">19</option>
+                <option value="20">20</option>
+                <option value="21">21</option>
+              </select>
+            </div>
+
+            <!-- Second Input: Dropdown for minPrompt -->
+            <div class="mb-3">
+              <label for="minPrompt" class="form-label">What is the MINIMUM number of credit hours you are comfortable taking in one semester?:</label>
+              <select class="form-select" id="minPrompt">
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+                <option value="11">11</option>
+                <option value="12">12</option>
+                <option value="13">13</option>
+                <option value="14">14</option>
+                <option value="15">15</option>
+                <option value="16">16</option>
+                <option value="17">17</option>
+                <option value="18">18</option>
+                <option value="19">19</option>
+                <option value="20">20</option>
+                <option value="21">21</option>
+              </select>
+            </div>
+
+            <!-- Third Input: Dropdown for summerPrompt -->
+            <div class="mb-3">
+              <label for="summerPrompt" class="form-label">Are you able to take summer courses?:</label>
+              <select class="form-select" id="summerPrompt">
+                <option value="yes">Yes</option>
+                <!-- <option value="online">Yes, but only online</option>
+                <option value="once">Yes, but only once</option>
+                <option value="twice">Yes, but only twice</option>
+                <option value="thrice">Yes, but only three times</option> -->
+                <option value="no">No</option>
+              </select>
+            </div>
+              <label for="yearPrompt" class="form-label">How many semesters do you want to take?</label>
+              <select class="form-select" id="yearPrompt">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+                <option value="11">11</option>
+                <option value="12">12</option>
+              </select>
+            <div class="mb-3">
+
+
+            </div>
+
+            <div class="mb-3", id="courseSelection">
+              <label for="coursePrompt" class="form-label">Select your classes:</label>
+              <input class="form-control" list="datalistOptions" id="coursePrompt" placeholder="Type to search...">
+              <!-- FIRST CLASS LOADS ON DOM CONTENT -->
+              <datalist id="datalistOptions">
+
+              </datalist>
+              <div id="newCourseClick"></div>
+            </div>
+
+            <div class="mb-3">
+              <button id="addSelect" class="btn btn-secondary">
+                Add Class
+              </button>
+            </div>
+
+            <div class="mb-3">
+              <button id="optimize">Get Schedule</button>
+            </div>
+          </div>
         </div>
-
-        <!-- Second Input: Dropdown for minPrompt -->
-        <div class="mb-3">
-          <label for="minPrompt" class="form-label">What is the MINIMUM number of credit hours you are comfortable taking in one semester?:</label>
-          <select class="form-select" id="minPrompt">
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-            <option value="6">6</option>
-            <option value="7">7</option>
-            <option value="8">8</option>
-            <option value="9">9</option>
-            <option value="10">10</option>
-            <option value="11">11</option>
-            <option value="12">12</option>
-            <option value="13">13</option>
-            <option value="14">14</option>
-            <option value="15">15</option>
-            <option value="16">16</option>
-            <option value="17">17</option>
-            <option value="18">18</option>
-            <option value="19">19</option>
-            <option value="20">20</option>
-            <option value="21">21</option>
-          </select>
-        </div>
-
-        <!-- Third Input: Dropdown for summerPrompt -->
-        <div class="mb-3">
-          <label for="summerPrompt" class="form-label">Are you able to take summer courses?:</label>
-          <select class="form-select" id="summerPrompt">
-            <option value="yes">Yes</option>
-            <!-- <option value="online">Yes, but only online</option>
-            <option value="once">Yes, but only once</option>
-            <option value="twice">Yes, but only twice</option>
-            <option value="thrice">Yes, but only three times</option> -->
-            <option value="no">No</option>
-          </select>
-        </div>
-          <label for="yearPrompt" class="form-label">How many semesters do you want to take?</label>
-          <select class="form-select" id="yearPrompt">
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-            <option value="6">6</option>
-            <option value="7">7</option>
-            <option value="8">8</option>
-            <option value="9">9</option>
-            <option value="10">10</option>
-            <option value="11">11</option>
-            <option value="12">12</option>
-          </select>
-        <div class="mb-3">
-
-
-        </div>
-
-        <div class="mb-3", id="courseSelection">
-          <label for="coursePrompt" class="form-label">Select your classes:</label>
-          <input class="form-control" list="datalistOptions" id="coursePrompt" placeholder="Type to search...">
-          <!-- FIRST CLASS LOADS ON DOM CONTENT -->
-          <datalist id="datalistOptions">
-
-          </datalist>
-          <div id="newCourseClick"></div>
-        </div>
-
-        <div class="mb-3">
-          <button id="addSelect" class="btn btn-secondary">
-            Add Class
-          </button>
-        </div>
-
-        <div class="mb-3">
-          <button id="optimize">Get Schedule</button>
-        </div>
+        
       
       </div>
 
+      <!-- Second Column -->
       <div class="col-6">
-        <table class="table", id="schedule">
-          <thead>
-            <tr>
-              <th scope="col">Year</th>
-              <th scope="col">Fall</th>
-              <th scope="col">Spring</th>
-              <th scope="col">Summer</th>
-            </tr>
-          </thead>
-          <tbody id="tableBody">
-            <tr>
-              <!-- this is just the base -->
-              <td>2024-2025</td>
-              <td></td>
-              <td></td>
-              <td></td>
-            </tr>
-          </tbody>
-        </table>
+        <div class="card">
+          <div class="card-header">
+            Schedule
+          </div>
+          <div class="card-body">
+            <table class="table", id="schedule">
+              <thead>
+                <tr>
+                  <th scope="col">Year</th>
+                  <th scope="col">Fall</th>
+                  <th scope="col">Spring</th>
+                  <th scope="col">Summer</th>
+                </tr>
+              </thead>
+              <tbody id="tableBody">
+                <tr>
+                  <!-- this is just the base -->
+                  <td>2024-2025</td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        
       </div>
 
-      <!-- Second Column -->
+      <!-- Third Column -->
       <div class="col-4">
-        <div id="bar-chart"></div>
-        <p id="optimization_results">Opt results will be displayed here.</p>
+        <div class="card">
+          <div class="card-header">
+            Graphs
+          </div>
+          <div class="card-body">
+            <div id="bar-chart"></div>
+            <p id="optimization_results">Opt results will be displayed here.</p>
+          </div>
+        </div>
       </div>
         
   </div>
