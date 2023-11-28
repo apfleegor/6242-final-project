@@ -23,9 +23,12 @@ def run_optimization():
     
     # Get parameters from the request (assuming they are in JSON format)
     data = request.get_json()
-    # print('Received data:', data)
+    print('Received data:', data)
     semesters = int(data.get('semesters'))
+    # print("----------------")
+    # print(semesters)
     minHours = int(data.get('minHours'))
+    # print(minHours)
     maxHours = int(data.get('maxHours'))
     # print(semesters, minHours, maxHours)
 

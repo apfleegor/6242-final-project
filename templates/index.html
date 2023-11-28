@@ -76,20 +76,27 @@
           <label for="summerPrompt" class="form-label">Are you able to take summer courses?:</label>
           <select class="form-select" id="summerPrompt">
             <option value="yes">Yes</option>
-            <option value="online">Yes, but only online</option>
+            <!-- <option value="online">Yes, but only online</option>
             <option value="once">Yes, but only once</option>
             <option value="twice">Yes, but only twice</option>
-            <option value="thrice">Yes, but only three times</option>
+            <option value="thrice">Yes, but only three times</option> -->
             <option value="no">No</option>
           </select>
         </div>
-          <label for="yearPrompt" class="form-label">How many years do you want to take?</label>
+          <label for="yearPrompt" class="form-label">How many semesters do you want to take?</label>
           <select class="form-select" id="yearPrompt">
             <option value="1">1</option>
             <option value="2">2</option>
             <option value="3">3</option>
             <option value="4">4</option>
             <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
+            <option value="11">11</option>
+            <option value="12">12</option>
           </select>
         <div class="mb-3">
 
@@ -240,31 +247,105 @@
 
     // TABLE DESIGN FOR SCHEDULE
     // dynamically change number of rows in table
-    numYears = document.getElementById("yearPrompt");
-    table_select = document.getElementById("tableBody");
-    numYears.addEventListener('change', function() {
+    numSems = document.getElementById("yearPrompt");
+    table_select = document.getElementById("schedule");
+    summer_bool = document.getElementById("summerPrompt");
+    body_select = document.getElementById("tableBody")
 
+    numSems.addEventListener('change', function() {
+
+      // console.log("testing")
       // delete all old rows
       old_rows = table_select.getElementsByTagName("tr")
       for (var i = 0, len = old_rows.length; i != len; ++i) {
         old_rows[0].parentNode.removeChild(old_rows[0]);
       }
 
-      let year_list = ['2024-2025', '2025-2026', '2026-2027', '2027-2028', '2028-2029']
-      for (let i=0; i<this.value; i++) {
-        // create new row
-        var row = table_select.insertRow(-1);
-        row.id = year_list[i]
+      let year_list = ['2024-2025', '2025-2026', '2026-2027', '2027-2028', '2028-2029', '2029-2030', '2030-2031', '2031-2032']
 
-        // create cells for the row
-        var cell1 = row.insertCell(0);
-        var fall = row.insertCell(1);
-        var spring = row.insertCell(2);
-        var summer = row.insertCell(3);
+      console.log(summer_bool.value)
+      // check if summer or not
+      if (summer_bool.value=="yes") {
 
-        // insert data into the year column
-        cell1.innerHTML = year_list[i]
+
+        // create header
+        var header = table_select.createTHead()
+        var head_row = header.insertRow(0)
+
+        var year = head_row.insertCell(0)
+        year.innerHTML = "Year"
+        var fall = head_row.insertCell(1)
+        fall.innerHTML = "Fall"
+        var spring = head_row.insertCell(2)
+        spring.innerHTML = "Spring"
+        var summer = head_row.insertCell(3)
+        summer.innerHTML = "Summer"
+
+        years_val = Math.ceil(this.value / 3);
+
+        // create rest of table
+        for (let i=0; i<years_val; i++) {
+
+          // create new row
+          var row = body_select.insertRow(-1);
+          row.id = year_list[i]
+
+          // create cells for the row
+          var cell1 = row.insertCell(0);
+          var cell2 = row.insertCell(1);
+          var cell3 = row.insertCell(2);
+          var cell4 = row.insertCell(3);
+
+          // insert data into the year column
+          cell1.innerHTML = year_list[i]
+        }
+
+      } else {
+        // create header
+        var header = table_select.createTHead()
+        var head_row = header.insertRow(0)
+
+        var year = head_row.insertCell(0)
+        year.innerHTML = "Year"
+        var fall = head_row.insertCell(1)
+        fall.innerHTML = "Fall"
+        var spring = head_row.insertCell(2)
+        spring.innerHTML = "Spring"
+
+        years_val = Math.ceil(this.value / 2);
+
+        // create rest of table
+        for (let i=0; i<years_val; i++) {
+
+          // create new row
+          var row = body_select.insertRow(-1);
+          row.id = year_list[i]
+
+          // create cells for the row
+          var cell1 = row.insertCell(0);
+          var cell2 = row.insertCell(1);
+          var cell3 = row.insertCell(2);
+
+          // insert data into the year column
+          cell1.innerHTML = year_list[i]
+        }
+        
       }
+
+      // for (let i=0; i<this.value; i++) {
+      //   // create new row
+      //   var row = table_select.insertRow(-1);
+      //   row.id = year_list[i]
+
+      //   // create cells for the row
+      //   var cell1 = row.insertCell(0);
+      //   var fall = row.insertCell(1);
+      //   var spring = row.insertCell(2);
+      //   var summer = row.insertCell(3);
+
+      //   // insert data into the year column
+      //   cell1.innerHTML = year_list[i]
+      // }
     });
 
     // get the courses from the selection into the schedule
