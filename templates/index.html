@@ -13,7 +13,6 @@
     <h1><strong>Optidule</strong></h1>
   </div>
 
-
   <div class="container">
     <div class="row">
       <div class="col-2">
@@ -105,9 +104,11 @@
 
         <div class="mb-3", id="courseSelection">
           <label for="coursePrompt" class="form-label">Select your classes:</label>
-          <select class="form-control" id="coursePrompt">
+          <input class="form-control" list="datalistOptions" id="coursePrompt" placeholder="Type to search...">
           <!-- FIRST CLASS LOADS ON DOM CONTENT -->
-          </select>
+          <datalist id="datalistOptions">
+
+          </datalist>
           <div id="newCourseClick"></div>
         </div>
 
@@ -170,7 +171,7 @@
 
     classes = data;
 
-    var courseBox = document.getElementById("coursePrompt")
+    var courseBox = document.getElementById("datalistOptions")
 
     // Loops through courses to create dropdown
     for(var i = 0; i < classes.length; i++) {
@@ -196,10 +197,15 @@
       courseCount++;
 
       // Create select element 
-      var newCourse = document.createElement("select");
+      var newCourse = document.createElement("input");
 
       // Set attributes
-      newCourse.className = "form-control";
+      // <input class="form-control" list="datalistOptions" id="coursePrompt" placeholder="Type to search...">
+      newCourse.setAttribute("class", "form-control");
+      newCourse.setAttribute("list", "datalistOptions");
+      newCourse.setAttribute("id", "coursePrompt");
+      newCourse.setAttribute("placeholder", "Type to search...");
+
 
       for(var i = 0; i < classes.length; i++) {
         var course = document.createElement("option");
@@ -353,7 +359,7 @@
             .addEventListener("click", function() {
       // working on getting info from course selection
       course_div = document.getElementById("courseSelection")
-      options = course_div.getElementsByTagName("select")
+      options = course_div.getElementsByTagName("input")
 
       data_cell = table_select.getElementsByTagName("td")
 
