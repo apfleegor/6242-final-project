@@ -1,5 +1,6 @@
 .jumbotron {
-    background-image: url("https://t4.ftcdn.net/jpg/03/16/36/59/360_F_316365913_WKVKZW7gzsqqhkx4PgGyu0rArj5GykHK.jpg");
+    /* background-image: url("https://t4.ftcdn.net/jpg/03/16/36/59/360_F_316365913_WKVKZW7gzsqqhkx4PgGyu0rArj5GykHK.jpg"); */
+    background-color: #a9995e;
     background-size: cover;
     height: 100%;
     color: white;
@@ -16,7 +17,8 @@
 }
 
 .table thead tr {
-    background-color: #004085; /* A dark shade for contrast */
+    /* background-color: #004085; A dark shade for contrast */
+    background-color: #003057;
     color: white;
     text-align: left;
 }
