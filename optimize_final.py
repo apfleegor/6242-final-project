@@ -81,6 +81,7 @@ def run( list_of_courses, min_hours, max_hours, summer=0, pr=None, df=pd.read_cs
                             model += pp.lpSum(when[(k,i)]*(k+1) for k in range(semesters)) >= pp.lpSum(when[(k,j)]*(k+1) for k in range(semesters)) + 1
             model.solve()
             if model.status == pp.LpStatusOptimal and summer==0:
+                output=[[] for _ in range(3)]
                 empty_lists = [[] for _ in range(semesters)]
                 for i in range(semesters):                            
                     if i%2==0:
@@ -91,18 +92,18 @@ def run( list_of_courses, min_hours, max_hours, summer=0, pr=None, df=pd.read_cs
                         if when[(i,j)].value() == 1:
                             print(f"{j}: {df_preds.loc[j].iloc[i]} {df_hours.loc[j].iloc[0]} ")
                             empty_lists[i].append((j,df_preds.loc[j].iloc[i]))
-                empty_lists.insert(0,[])
-                empty_lists.insert(0,[])
-                empty_lists[0]=model.objective.value()
-                empty_lists[1]=semesters
+                output[0]=model.objective.value()
+                output[1]=semesters
+                output[2]=empty_lists
                 print(f"objective: {model.objective.value()}")
                 print(f"Number of Semesters:{semesters}")
                 print(df_precs)
                 print(empty_lists)
                 breaker=10000
-                return empty_lists
+                return output
                 break
             elif model.status == pp.LpStatusOptimal and summer==1:
+                output=[[] for _ in range(3)]
                 empty_lists = [[] for _ in range(semesters)]
                 for i in range(semesters):
                     if i%3==0:
@@ -115,16 +116,15 @@ def run( list_of_courses, min_hours, max_hours, summer=0, pr=None, df=pd.read_cs
                         if when[(i,j)].value() == 1:
                             print(f"{j}: {df_preds.loc[j].iloc[i]} {df_hours.loc[j].iloc[0]} ")
                             empty_lists[i].append((j,df_preds.loc[j].iloc[i]))
-                empty_lists.insert(0,[])
-                empty_lists.insert(0,[])
-                empty_lists[0]=model.objective.value()
-                empty_lists[1]=semesters
+                output[0]=model.objective.value()
+                output[1]=semesters
+                output[2]=empty_lists
                 print(f"objective: {model.objective.value()}")
                 print(f"Number of Semesters:{semesters}")
                 print(df_precs)
                 print(empty_lists)
                 breaker=10000
-                return empty_lists
+                return output
                 break
         breaker+=1
         if breaker==10001:
