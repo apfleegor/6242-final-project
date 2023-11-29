@@ -40,10 +40,14 @@
     margin: 10px;
 }
 
-#card-header {
+.d-block {
     color: black
 }
 
-.d-block {
-    color: black
+.padding-r{
+    padding-right:0;
+}
+
+.padding-l{
+    padding-left:0;
 }
