@@ -295,8 +295,8 @@
 
   function createTable (optimize_output, summer) {
 
-    console.log("create table")
-    console.log(optimize_output)
+    // console.log("create table")
+    // console.log(optimize_output)
 
     // select the correct elements in the html code
     table_select = document.getElementById("schedule");
@@ -325,14 +325,14 @@
       var summer = head_row.insertCell(3)
       summer.innerHTML = "Summer"
 
-      console.log(table_select.innerHTML)
+      // console.log(table_select.innerHTML)
 
       years_val = Math.ceil(optimize_output[1] / 3);
       numSems = optimize_output[1]
-      remainder = years_val % numSems
+      remainder = numSems % years_val
 
-      console.log(years_val)
-      console.log(remainder)
+      // console.log(years_val)
+      // console.log(remainder)
 
       // create rest of table
       sem_counter = 0
@@ -401,7 +401,7 @@
 
           // put first course into the string
           current_str = current_str.concat("", courses[0][0])
-          console.log("here")
+          // console.log("here")
 
           for (let i=0; i<courses.length; i++) {
             if (i>0) {current_str = current_str.concat("<br>", courses[i][0])}
@@ -413,7 +413,7 @@
           
         } else {
 
-          console.log("got here")
+          // console.log("got here")
 
           // ------------------------------------------------------------------
           // fall
@@ -473,9 +473,10 @@
       var spring = head_row.insertCell(2)
       spring.innerHTML = "Spring"
 
-      years_val = Math.ceil(optimize_output[1] / 3);
+      years_val = Math.ceil(optimize_output[1] / 2);
       numSems = optimize_output[1]
-      remainder = years_val % numSems
+      remainder = numSems % years_val
+      // console.log(remainder)
 
       // create rest of table
       sem_counter = 0
@@ -494,7 +495,7 @@
         cell1.innerHTML = year_list[i]
 
         // insert data into semesters
-        console.log(years_val)
+        // console.log(years_val)
         if ((i != years_val-1) || (remainder==0)) {
 
           // ------------------------------------------------------------------
@@ -592,9 +593,9 @@
     })
     .then(response => response.json())
     .then(data => {
-      console.log("testing")
+      // console.log("testing")
       // Update the result on the webpage
-      console.log(data.opt_log)
+      // console.log(data.opt_log)
       createTable(data.opt_log, summer_final);
 
       // document.getElementById('optimization_results').innerText = 'RESULTS:\n' + data.opt_log;
@@ -610,7 +611,7 @@
     // working on getting info from course selection
     course_div = document.getElementById("courseSelection")
     options = course_div.getElementsByTagName("input")
-    console.log(options)
+    // console.log(options)
 
     optimize_from_html(options)
 
