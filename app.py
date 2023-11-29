@@ -48,7 +48,7 @@ def run_optimization():
     # opt_log = run(['ISYE 6501', 'ISYE 6414', 'CSE 6242', 'ISYE 6669', 'MGT 8803', 'CSE 6040'], 5, 12, summer=summer)
     # opt_log = [3.6551637842884044, 2, [[['ISYE 6414',3.499326780769436], ['MGT 8803', 3.8339323963212553], ['CSE 6040', 3.6196010600730615]], [['ISYE 6501', 3.6312633902786087], ['CSE 6242', 3.9702462718971048], ['ISYE 6669', 3.3766128063909586]]]]
 
-    # print(opt_log)
+    print(opt_log)
 
     # we can change this so that we can retrieve {sem1: {...}} or more creative 
     # formats to customize retrieval

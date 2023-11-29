@@ -12,10 +12,13 @@ import pandas as pd
 # out_file.close()
 
 df = pd.read_csv("data/all_predictions_with_nonans_edited_by_goatshu.csv")
-print(df.head())
+print(len(df.index))
+df2 = pd.read_csv("data/all_predictions_with_nans.csv")
+print(len(df2.index))
+# print(df.head())
 
-courses = list(df["Course"])
+# courses = list(df["Course"])
 
-out_file = open("static/classes.json", "w")
-json.dump(courses, out_file)
-out_file.close()
+# out_file = open("static/classes.json", "w")
+# json.dump(courses, out_file)
+# out_file.close()
