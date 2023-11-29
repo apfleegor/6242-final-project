@@ -131,6 +131,12 @@
                   <button id="addSelect" class="btn btn-secondary">
                     Add Class
                   </button>
+
+
+                  <!-- Clear Classes Button -->
+                  <button id="clearClasses" class="btn btn-warning ml-2">
+                    Clear
+                  </button>
                 </div>
 
                 <div class="mb-3">
@@ -162,10 +168,11 @@
                 <table class="table", id="schedule">
                   <thead>
                     <tr>
-                      <th scope="col">Year</th>
+                      <th scope="col" style="width: 20%;">Year</th>
                       <th scope="col">Fall</th>
                       <th scope="col">Spring</th>
                       <th scope="col">Summer</th>
+                      <th scope="col">End of Year GPA</th>
                     </tr>
                   </thead>
                   <tbody id="tableBody">
@@ -471,7 +478,7 @@
 
           remainder -= 1;
 
-          if (remainder >= 0) {
+          if (remainder > 0) {
             // ------------------------------------------------------------------
             // spring
             courses = optimize_output[2][sem_counter]
@@ -660,12 +667,23 @@
     optimize_from_html(courses_list)
 
   });
+
+    // Event listener for 'Clear Classes' button
+  document.getElementById("clearClasses").addEventListener("click", function() {
+    // Get all input elements within #courseSelection
+    var inputs = document.getElementById("courseSelection").getElementsByTagName("input");
+
+    // Iterate over each input and clear its value
+    for (var i = 0; i < inputs.length; i++) {
+      inputs[i].value = "";
+    }
+  });
   
   
   //////////////////////////////////////////////
 
   // OPTIMIZATION BACKEND - FLASK
-  
+
     // function optimize_from_html() {
     //     // for now, this is using years instead of semesters (dummy)
     //     // var semesters = document.getElementById('yearPrompt').value;
@@ -687,8 +705,8 @@
     //             'Content-Type': 'application/json'
     //         },
     //         body: JSON.stringify({
-    //           'summer' : summer_final, 
-    //           'minHours' : minHours, 
+    //           'summer' : summer_final,
+    //           'minHours' : minHours,
     //           'maxHours' : maxHours})
     //     })
     //     .then(response => response.json())
