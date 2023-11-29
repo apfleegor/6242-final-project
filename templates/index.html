@@ -618,9 +618,14 @@
     // working on getting info from course selection
     course_div = document.getElementById("courseSelection")
     options = course_div.getElementsByTagName("input")
-    // console.log(options)
 
-    optimize_from_html(options)
+    courses_list = []
+    for (let i=0; i<options.length; i++) {
+      courses_list.push(options[i].value)
+    }
+    console.log(courses_list)
+
+    optimize_from_html(courses_list)
 
   });
   

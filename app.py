@@ -42,13 +42,13 @@ def run_optimization():
 
     # get opt log, a string (for now, some kind of dict later?)
     # opt_log = optimize(semesters, minHours, maxHours, df_fill)
-    # opt_log = run(course_list, minHours, maxHours, summer=summer)
+    opt_log = run(course_list, minHours, maxHours, summer=summer)
 
     print(course_list)
 
     # opt_log = run(['ISYE 6501', 'ISYE 6414', 'CSE 6242', 'ISYE 6669', 'MGT 8803', 'CSE 6040'], 5, 12, summer=summer)
     # opt_log = [3.6551637842884044, 2, [{'ISYE 6414':3.499326780769436, 'MGT 8803':3.8339323963212553, 'CSE 6040':3.6196010600730615}, {'ISYE 6501': 3.6312633902786087, 'CSE 6242':3.9702462718971048, 'ISYE 6669':3.3766128063909586}]]
-    opt_log = [3.6551637842884044, 2, [[['ISYE 6414',3.499326780769436], ['MGT 8803', 3.8339323963212553], ['CSE 6040', 3.6196010600730615]], [['ISYE 6501', 3.6312633902786087], ['CSE 6242', 3.9702462718971048], ['ISYE 6669', 3.3766128063909586]]]]
+    # opt_log = [3.6551637842884044, 2, [[['ISYE 6414',3.499326780769436], ['MGT 8803', 3.8339323963212553], ['CSE 6040', 3.6196010600730615]], [['ISYE 6501', 3.6312633902786087], ['CSE 6242', 3.9702462718971048], ['ISYE 6669', 3.3766128063909586]]]]
 
     # print(opt_log)
 
