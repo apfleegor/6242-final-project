@@ -10,7 +10,7 @@ import math
 #ex: [[""],["MATH 1554"],[""],[""]]  with list of courses being ["MATH 1554","CS 1331","CS 1332","CS 2050"]
 # woudl mean that math is pre req to cs 1331 and the rest have no prereqs
 #every time you run the function it creates its own prereqs so if you want to keep the same prereqs you have to input them
-def run(list_of_courses, min_hours, max_hours,summer=0,pr=None ,df=pd.read_csv('all_predictions_with_nonans_edited_by_goatshu.csv')):
+def run(list_of_courses, min_hours, max_hours,summer=0,pr=None ,df=pd.read_csv('data/all_predictions_with_nonans_edited_by_goatshu.csv')):
     pd.options.mode.chained_assignment = None
     df = df[df['Course'].isin(list_of_courses)]
     df = df.reset_index(drop=True)
@@ -39,6 +39,7 @@ def run(list_of_courses, min_hours, max_hours,summer=0,pr=None ,df=pd.read_csv('
                     elif df1['Pre-req'][i] == 2:
                         df1['Pre-req'][i] = random.sample(available_courses,2)
                     elif df1['Pre-req'][i] == 3:
+                        print(available_courses)
                         df1['Pre-req'][i] = random.sample(available_courses,3)
                     else:
                         df1['Pre-req'][i] = ['']
@@ -116,8 +117,9 @@ def run(list_of_courses, min_hours, max_hours,summer=0,pr=None ,df=pd.read_csv('
         elif breaker>=100:
             print("This configuration is not possible please change parameters")
             break
+    # return [["ISYE 6501"], ["CSE 6242"]]
 #THE SHIT BELOW IS FOR TESTING YOU CAN UNCOMMENT IF YOU WANT
-#df=pd.read_csv('ISYE_SAMPLE.csv')
-#print the courses column as a list
-#LL=list(df['Course'])
-#run(LL,12,15,0)
+# df=pd.read_csv('data/ISYE_SAMPLE.csv')
+# #print the courses column as a list
+# LL=list(df['Course'])
+# run(LL,12,15,0)
