@@ -354,7 +354,7 @@
         // insert data into the year column
         cell1.innerHTML = year_list[i]
 
-        console.log(remainder)
+        // console.log(remainder)
 
         // insert data into semesters
         if ((i != years_val-1) || (remainder==0)) {
@@ -402,7 +402,7 @@
           // ------------------------------------------------------------------
           // summer
           courses = optimize_output[2][sem_counter]
-          console.log(courses)
+          // console.log(courses)
           
           // create string for classes
           current_str = ""
@@ -574,6 +574,8 @@
   
 
   function optimize_from_html(course_list) {
+    // console.log(course_list)
+    // console.log("----------------")
     
     var minHours = document.getElementById('minPrompt').value;
     var maxHours = document.getElementById('maxPrompt').value;
@@ -623,7 +625,7 @@
     for (let i=0; i<options.length; i++) {
       courses_list.push(options[i].value)
     }
-    console.log(courses_list)
+    // console.log(courses_list)
 
     optimize_from_html(courses_list)
 

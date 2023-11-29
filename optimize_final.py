@@ -11,6 +11,7 @@ import math
 # woudl mean that math is pre req to cs 1331 and the rest have no prereqs
 #every time you run the function it creates its own prereqs so if you want to keep the same prereqs you have to input them
 def run( list_of_courses, min_hours, max_hours, summer=0, pr=None, df=pd.read_csv('data/all_predictions_with_nonans_edited_by_goatshu.csv')):
+    print(list_of_courses)
     pd.options.mode.chained_assignment = None
     df = df[df['Course'].isin(list_of_courses)]
     df = df.reset_index(drop=True)
