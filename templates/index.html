@@ -329,7 +329,7 @@
 
       years_val = Math.ceil(optimize_output[1] / 3);
       numSems = optimize_output[1]
-      remainder = numSems % years_val
+      remainder = numSems % 3
 
       // console.log(years_val)
       // console.log(remainder)
@@ -351,12 +351,15 @@
         // insert data into the year column
         cell1.innerHTML = year_list[i]
 
+        console.log(remainder)
+
         // insert data into semesters
         if ((i != years_val-1) || (remainder==0)) {
 
           // ------------------------------------------------------------------
           // fall
           courses = optimize_output[2][sem_counter]
+          // console.log(courses)
 
           // create string for classes
           current_str = ""
@@ -376,6 +379,7 @@
           // ------------------------------------------------------------------
           // spring
           courses = optimize_output[2][sem_counter]
+          // console.log(courses)
 
           // create string for classes
           current_str = ""
@@ -395,6 +399,7 @@
           // ------------------------------------------------------------------
           // summer
           courses = optimize_output[2][sem_counter]
+          console.log(courses)
           
           // create string for classes
           current_str = ""
@@ -475,7 +480,7 @@
 
       years_val = Math.ceil(optimize_output[1] / 2);
       numSems = optimize_output[1]
-      remainder = numSems % years_val
+      remainder = numSems % 2
       // console.log(remainder)
 
       // create rest of table
