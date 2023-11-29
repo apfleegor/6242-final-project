@@ -293,10 +293,12 @@
   // -----------------------------------------------------------------------------
 
 
+  // -----------------------------------------------------------------------------
+  // CREATING TABLE
   function createTable (optimize_output, summer) {
 
     // console.log("create table")
-    // console.log(optimize_output)
+    console.log(optimize_output)
 
     // select the correct elements in the html code
     table_select = document.getElementById("schedule");
@@ -310,6 +312,7 @@
   
     let year_list = ['2024-2025', '2025-2026', '2026-2027', '2027-2028', '2028-2029', '2029-2030', '2030-2031', '2031-2032'];
 
+    // if with summer courses
     if (summer==1) {
 
       // create header
@@ -416,9 +419,7 @@
 
           sem_counter += 1;
           
-        } else {
-
-          // console.log("got here")
+        } else { // no summer courses
 
           // ------------------------------------------------------------------
           // fall
@@ -567,6 +568,7 @@
     }
 
   };
+  // -----------------------------------------------------------------------------
 
 
   
