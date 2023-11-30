@@ -20,6 +20,9 @@ def run( list_of_courses, min_hours, max_hours, summer=0, pr=None, df=pd.read_cs
     pd.options.mode.chained_assignment = None
     df = df[df['Course'].isin(list_of_courses)]
     df = df.reset_index(drop=True)
+    df = df.set_index("Course")
+    df = df.reindex(list_of_courses)
+    df = df.reset_index()
     # this part creates the inputs needed from the user
     #min_hours = int(input("What are minimum hours you want to take?")) #used 12 for testing
     #max_hours = int(input("What are maximum hours you want to take?")) #used 18 for testing
