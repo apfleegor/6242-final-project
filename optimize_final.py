@@ -96,8 +96,6 @@ def run( list_of_courses, min_hours, max_hours, summer=0, pr=None, df=pd.read_cs
                     for j in df_precs["Pre-req"][i]:
                             model += pp.lpSum(when[(k,i)]*(k+1) for k in range(semesters)) >= pp.lpSum(when[(k,j)]*(k+1) for k in range(semesters)) + 1
             model.solve()
-            if model.status!=pp.LpStatusOptimal:
-                return "ERROR"
             if model.status == pp.LpStatusOptimal and summer==0:
                 output=[[] for _ in range(3)]
                 empty_lists = [[] for _ in range(semesters)]
