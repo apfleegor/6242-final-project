@@ -35,6 +35,7 @@ def run_optimization():
     maxHours = int(data.get('maxHours'))
     # print(semesters, minHours, maxHours)
     course_list = data.get('course_list')
+    prereqs = data.get('prereqs')
 
     df = pd.read_csv('data/ISYE_SAMPLE.csv')
     # print(df)
@@ -44,7 +45,7 @@ def run_optimization():
     # opt_log = optimize(semesters, minHours, maxHours, df_fill)
 
     # check if returning error
-    running = run(course_list, minHours, maxHours, summer=summer)
+    running = run(course_list, minHours, maxHours, summer=summer, pr=prereqs)
     print(running)
     # print(running)
     # print("--------------")
@@ -54,7 +55,7 @@ def run_optimization():
         result = {"opt_log": "ERROR"}
         return jsonify(result)
     
-    opt_log, df_graph = run(course_list, minHours, maxHours, summer=summer)
+    opt_log, df_graph = run(course_list, minHours, maxHours, summer=summer, pr=prereqs)
 
     # df_graph.to_csv("df_graph.csv")
     

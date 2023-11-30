@@ -107,68 +107,70 @@
                 Scheduling Constraints
               </div>
               <div class="card-body">
-                <div class="row">
-                  <!-- First Input: Dropdown for maxPrompt -->
-                  <label for="maxPrompt" class="form-label">Maximum number of credits:</label>
-                  <select class="form-select" id="maxPrompt">
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                    <option value="6"selected>6</option>
-                    <option value="7">7</option>
-                    <option value="8">8</option>
-                    <option value="9">9</option>
-                    <option value="10">10</option>
-                    <option value="11">11</option>
-                    <option value="12" >12</option>
-                    <option value="13">13</option>
-                    <option value="14">14</option>
-                    <option value="15">15</option>
-                    <option value="16">16</option>
-                    <option value="17">17</option>
-                    <option value="18">18</option>
-                    <option value="19">19</option>
-                    <option value="20">20</option>
-                    <option value="21">21</option>
-                  </select>
-                      
-                </div>
+                <div class="col">
+                  <div class="row">
+                    <!-- First Input: Dropdown for maxPrompt -->
+                    <label for="maxPrompt" class="form-label">Maximum number of credits:</label>
+                    <select class="form-select" id="maxPrompt">
+                      <option value="2">2</option>
+                      <option value="3">3</option>
+                      <option value="4">4</option>
+                      <option value="5">5</option>
+                      <option value="6"selected>6</option>
+                      <option value="7">7</option>
+                      <option value="8">8</option>
+                      <option value="9">9</option>
+                      <option value="10">10</option>
+                      <option value="11">11</option>
+                      <option value="12" >12</option>
+                      <option value="13">13</option>
+                      <option value="14">14</option>
+                      <option value="15">15</option>
+                      <option value="16">16</option>
+                      <option value="17">17</option>
+                      <option value="18">18</option>
+                      <option value="19">19</option>
+                      <option value="20">20</option>
+                      <option value="21">21</option>
+                    </select>
+                        
+                  </div>
 
-                <div class="row">
-                  <!-- Second Input: Dropdown for minPrompt -->
-                  <label for="minPrompt" class="form-label">Minimum number of credits:</label>
-                  <select class="form-select" id="minPrompt">
-                    <option value="2">2</option>
-                    <option value="3"selected>3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                    <option value="6">6</option>
-                    <option value="7">7</option>
-                    <option value="8">8</option>
-                    <option value="9">9</option>
-                    <option value="10">10</option>
-                    <option value="11">11</option>
-                    <option value="12">12</option>
-                    <option value="13">13</option>
-                    <option value="14">14</option>
-                    <option value="15">15</option>
-                    <option value="16">16</option>
-                    <option value="17">17</option>
-                    <option value="18">18</option>
-                    <option value="19">19</option>
-                    <option value="20">20</option>
-                    <option value="21">21</option>
-                  </select>
-                </div>
+                  <div class="row">
+                    <!-- Second Input: Dropdown for minPrompt -->
+                    <label for="minPrompt" class="form-label">Minimum number of credits:</label>
+                    <select class="form-select" id="minPrompt">
+                      <option value="2">2</option>
+                      <option value="3"selected>3</option>
+                      <option value="4">4</option>
+                      <option value="5">5</option>
+                      <option value="6">6</option>
+                      <option value="7">7</option>
+                      <option value="8">8</option>
+                      <option value="9">9</option>
+                      <option value="10">10</option>
+                      <option value="11">11</option>
+                      <option value="12">12</option>
+                      <option value="13">13</option>
+                      <option value="14">14</option>
+                      <option value="15">15</option>
+                      <option value="16">16</option>
+                      <option value="17">17</option>
+                      <option value="18">18</option>
+                      <option value="19">19</option>
+                      <option value="20">20</option>
+                      <option value="21">21</option>
+                    </select>
+                  </div>
 
-                <div class="row">
-                  <!-- Third Input: Dropdown for summerPrompt -->
-                  <label for="summerPrompt" class="form-label">Summer courses?:</label>
-                  <select class="form-select" id="summerPrompt">
-                    <option value="yes">Yes</option>
-                    <option value="no">No</option>
-                  </select> 
+                  <div class="row">
+                    <!-- Third Input: Dropdown for summerPrompt -->
+                    <label for="summerPrompt" class="form-label">Summer courses?:</label>
+                    <select class="form-select" id="summerPrompt">
+                      <option value="yes">Yes</option>
+                      <option value="no">No</option>
+                    </select> 
+                  </div>
                 </div>
               </div>
             </div>
@@ -711,7 +713,7 @@ legend.append("text")
 // ------------------------------------------------------------------------------------------------
 
 
-function optimize_from_html(course_list) {
+function optimize_from_html(course_list, pre_reqs_list) {
   // console.log(course_list)
   // console.log("----------------")
     
@@ -739,7 +741,8 @@ function optimize_from_html(course_list) {
       'summer' : summer_final, 
       'minHours' : minHours, 
       'maxHours' : maxHours,
-      'course_list': course_list
+      'course_list': course_list,
+      'prereqs': pre_reqs_list
     })
   })
   .then(response => response.json())
@@ -784,8 +787,6 @@ document.getElementById("optimize").addEventListener("click", function() {
 
   // drawInteractiveLineChart(dummy_gpas, dummy_semesters, dummy_prereqs, dummy_professors);
 
-
-
   // working on getting info from course selection
   course_div = document.getElementById("courseSelection")
   options = course_div.getElementsByTagName("input")
@@ -796,7 +797,17 @@ document.getElementById("optimize").addEventListener("click", function() {
   }
   console.log(courses_list)
 
-  optimize_from_html(courses_list)
+  // get prereqs
+  pre_div = document.getElementById("preReq")
+  pre_options = pre_div.getElementsByTagName("input")
+
+  pre_reqs_list = []
+  for (let i=0; i<pre_options.length; i++) {
+    pre_reqs_list.push([pre_options[i].value])
+  }
+  console.log(pre_reqs_list)
+
+  optimize_from_html(courses_list, pre_reqs_list)
 });
 
 
