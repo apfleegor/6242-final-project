@@ -44,7 +44,11 @@ def run_optimization():
     # opt_log = optimize(semesters, minHours, maxHours, df_fill)
     opt_log, df_graph = run(course_list, minHours, maxHours, summer=summer)
 
-    df_graph.to_csv("df_graph.csv")
+    # df_graph.to_csv("df_graph.csv")
+    
+    # save opt log to a text file
+    # with open("opt_log.txt", "w") as f:
+    #     f.write(str(opt_log))
 
     # get gpas
     gpa_dict, semester_by_course, prereqs_by_course, prof_dict = get_interactive_graph_data(opt_log, df_graph )
@@ -56,9 +60,6 @@ def run_optimization():
     print(opt_log)
 
 
-    # save opt log to a text file
-    with open("opt_log.txt", "w") as f:
-        f.write(str(opt_log))
     
 
     # we can change this so that we can retrieve {sem1: {...}} or more creative 

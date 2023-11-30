@@ -457,15 +457,22 @@ function drawInteractiveLineChart(gpas, semesters,prereqs, professors) {
   console.log("drawInteractiveLineChart called with data:", gpas);
 
   // Transform data
+  let lowestGpa = 4;
+  let highestGpa = 0;
   let courseData = [];
   Object.keys(gpas).forEach(course => {
     let maxGpa = d3.max(gpas[course][0]);
     let minGpa = d3.min(gpas[course][0]);
     gpas[course][0].forEach((gpa, semesterIndex) => {
+      // let semesterIndex = index + 1;  // Adjust for zero-based indexing
+      let professorName = professors[course] && professors[course][semesterIndex] ? professors[course][semesterIndex]  : "Unknown";
+      lowestGpa = Math.min(lowestGpa, gpa);
+      highestGpa = Math.max(highestGpa, gpa);
       courseData.push({ 
         course, 
         semester: semesterIndex + 1, 
         gpa, 
+        professor : professorName,
         isMax: gpa === maxGpa,
         isMin: gpa === minGpa
       });
@@ -502,11 +509,16 @@ function drawInteractiveLineChart(gpas, semesters,prereqs, professors) {
     .offset([-10, 0])
     .html(function(d) {
       // tooltip contets
-      let maxGpa = d3.max(gpas[d.course][0]);
-      let minGpa = d3.min(gpas[d.course][0]);
-      let gpa = gpas[d.course][0][semesters[d.course] - 1];
+      // let maxGpa = d3.max(gpas[d.course][0]);
+      // let minGpa = d3.min(gpas[d.course][0]);
+      // let gpa = gpas[d.course][0][semesters[d.course] - 1];
+      let maxGpa = d3.max(gpas[d.course][0]).toFixed(2);
+      let minGpa = d3.min(gpas[d.course][0]).toFixed(2);
+      let gpa = gpas[d.course][0][semesters[d.course] - 1].toFixed(2);
+      // let gpa = gpa.toFixed(2);
       let prereqText = prereqs[d.course].length > 0 ? prereqs[d.course].join(", ") : "None";
-      return `Max GPA: ${maxGpa}<br>Min GPA: ${minGpa} <br> Model GPA: ${gpa} <br>Prereqs: ${prereqText}`;
+      let professor = d.professor;
+      return `Max GPA: ${maxGpa}<br>Min GPA: ${minGpa} <br> Model GPA: ${gpa} <br>Prereqs: ${prereqText} <br>Professor: ${professor}`;
     });
 
   svg.call(tip);
@@ -515,9 +527,14 @@ function drawInteractiveLineChart(gpas, semesters,prereqs, professors) {
   const firstKey = Object.keys(dummy_gpas)[0];
   const maxSemester = dummy_gpas[firstKey][0].length;
 
+  lowestGpa = Math.floor(lowestGpa * 10) / 10;
+  highestGpa = Math.ceil(highestGpa * 10) / 10;
+  highestGpa = Math.max(highestGpa, 4);
+
+
   // Scales
   const xScale = d3.scaleLinear().domain([1, maxSemester]).range([0, width]);
-  const yScale = d3.scaleLinear().domain([2, 4]).range([height, 0]);
+  const yScale = d3.scaleLinear().domain([lowestGpa, highestGpa]).range([height, 0]);
 
   // Colors
   const color = d3.scaleOrdinal(d3.schemeCategory10);
@@ -549,17 +566,18 @@ function drawInteractiveLineChart(gpas, semesters,prereqs, professors) {
       .attr("fill", "none")
       .attr("d", line);
 
-    // Draw squares for max GPA
-    group.selectAll("rect.max-gpa")
-      .data(d.values.filter(v => v.isMax))
-      .enter().append("rect")
-      .attr("width", 10)
-      .attr("height", 10)
-      .attr("x", function(d) { return xScale(d.semester) - 5; })
-      .attr("y", function(d) { return yScale(d.gpa) - 5; })
-      .style("fill", function() { return color(d.key); })
-      .on("mouseover", tip.show)
-      .on("mouseout", tip.hide); 
+    // Draw triang for max GPA
+    group.selectAll(".max-gpa-triangle")
+    .data(d.values.filter(v => v.isMax))
+    .enter().append("path")
+    .attr("d", d3.symbol().type(d3.symbolTriangle).size(150))
+    .attr("transform", function(d) { 
+        return `translate(${xScale(d.semester)}, ${yScale(d.gpa)})`; 
+    })
+    .style("fill", function() { return color(d.key); })
+    .on("mouseover", tip.show)
+    .on("mouseout", tip.hide);
+
 
     // Draw circles for other points
     group.selectAll("circle")
@@ -579,14 +597,15 @@ function drawInteractiveLineChart(gpas, semesters,prereqs, professors) {
   Object.keys(semesters).forEach(course => {
     let semester = semesters[course];
     svg.selectAll(".dot")
-       .data(courseData.filter(d => d.course === course && d.semester === semester))
-       .enter().append("path")
-       .attr("d", d3.symbol().type(d3.symbolDiamond).size(192))
-       .attr("transform", d => `translate(${xScale(d.semester)}, ${yScale(d.gpa)})`)
-       .attr("fill", color(course))
-       .on("mouseover", tip.show)
+      .data(courseData.filter(d => d.course === course && d.semester === semester))
+      .enter().append("path")
+      .attr("d", d3.symbol().type(d3.symbolCross).size(250)) // Use symbolCross for "x"
+      .attr("transform", d => `translate(${xScale(d.semester)}, ${yScale(d.gpa)})`)
+      .attr("fill", color(course))
+      .on("mouseover", tip.show)
       .on("mouseout", tip.hide);
   });
+
 
   // Interaction: Highlight the course's line and dim others
   svg.selectAll(".course-group")
