@@ -1,5 +1,5 @@
 from flask import Flask, render_template, jsonify, request
-from optimize import fill_pre, fill_preds, optimize, get_gpas_for_courses
+from optimize import fill_pre, fill_preds, optimize, get_interactive_graph_data
 from optimize_final import run
 import pandas as pd
 import numpy as np
@@ -42,20 +42,24 @@ def run_optimization():
 
     # get opt log, a string (for now, some kind of dict later?)
     # opt_log = optimize(semesters, minHours, maxHours, df_fill)
-    opt_log = run(course_list, minHours, maxHours, summer=summer)
+    opt_log, df_graph = run(course_list, minHours, maxHours, summer=summer)
 
+    df_graph.to_csv("df_graph.csv")
 
     # get gpas
-    gpas = get_gpas_for_courses(course_list)
+    gpa_dict, semester_by_course, prereqs_by_course, prof_dict = get_interactive_graph_data(opt_log, df_graph )
 
     # opt_log = run(['ISYE 6501', 'ISYE 6414', 'CSE 6242', 'ISYE 6669', 'MGT 8803', 'CSE 6040'], 5, 12, summer=summer)
     # opt_log = [3.6551637842884044, 2, [[['ISYE 6414',3.499326780769436], ['MGT 8803', 3.8339323963212553], ['CSE 6040', 3.6196010600730615]], [['ISYE 6501', 3.6312633902786087], ['CSE 6242', 3.9702462718971048], ['ISYE 6669', 3.3766128063909586]]]]
 
     print("opt_log is: ")
     print(opt_log)
+
+
+    # save opt log to a text file
+    with open("opt_log.txt", "w") as f:
+        f.write(str(opt_log))
     
-    print("gpas is: ")
-    print(gpas)
 
     # we can change this so that we can retrieve {sem1: {...}} or more creative 
     # formats to customize retrieval
@@ -63,7 +67,10 @@ def run_optimization():
 
     result = {
             "opt_log": opt_log,
-            "gpas": gpas
+            "gpas": gpa_dict,
+            "semesters": semester_by_course,
+            "prereqs": prereqs_by_course,
+            "professors": prof_dict
         }
     
     return jsonify(result)

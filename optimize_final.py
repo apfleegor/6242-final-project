@@ -11,6 +11,8 @@ import math
 # woudl mean that math is pre req to cs 1331 and the rest have no prereqs
 #every time you run the function it creates its own prereqs so if you want to keep the same prereqs you have to input them
 
+# FEYZI NOTE 11/30/2023: I made it return the a df so that I can display it in the graph
+
 def run( list_of_courses, min_hours, max_hours, summer=0, pr=None, df=pd.read_csv('data/all_predictions_with_nonans_edited_by_goatshu.csv')):
     print(list_of_courses)
     pd.options.mode.chained_assignment = None
@@ -47,13 +49,23 @@ def run( list_of_courses, min_hours, max_hours, summer=0, pr=None, df=pd.read_cs
         else:
             df1=copy.deepcopy(df)
             df1['Pre-req'] = pr
+
         df_fill=df1
+
         df_preds = df_fill[["Course","Pred_1","Pred_2","Pred_3","Pred_4","Pred_5","Pred_6","Pred_7","Pred_8"]]
         df_preds = df_preds.set_index("Course")
+
+
         df_precs = df_fill[["Course","Pre-req"]]
         df_precs = df_precs.set_index("Course")
+
+
         df_hours = df_fill[["Course","Cred_hours"]]
         df_hours = df_hours.set_index("Course")
+
+        # df to return for use in the graph
+        df_graph = df1.copy()
+
         for semesters in range(min_sem,max_sem+1):
             # this part creates the model
             model = pp.LpProblem(name="Schedule", sense=pp.LpMaximize)
@@ -102,7 +114,7 @@ def run( list_of_courses, min_hours, max_hours, summer=0, pr=None, df=pd.read_cs
                 print(df_precs)
                 print(empty_lists)
                 breaker=10000
-                return output
+                return output, df_graph
                 break
             elif model.status == pp.LpStatusOptimal and summer==1:
                 output=[[] for _ in range(3)]
@@ -126,7 +138,7 @@ def run( list_of_courses, min_hours, max_hours, summer=0, pr=None, df=pd.read_cs
                 print(df_precs)
                 print(empty_lists)
                 breaker=10000
-                return output
+                return output, df_graph
                 break
         breaker+=1
         if breaker==10001:

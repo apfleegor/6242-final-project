@@ -122,21 +122,62 @@ def optimize(semesters, min_hours, max_hours, df_fill):
 
 
 
-# Use this function to get all the predicted GPAs for the chosen courses
-# also return the semester chosen to take it 
+"""
+# Use this function to get all the required data for the interactive graph
 
-def get_gpas_for_courses(course_list):
+# Need to return the following
+GPA_by_course= { course1: [gpa1, gpa2, gpa3, ...], course2: [gpa1, gpa2, gpa3, ...], ... }
+Semester_by_course = { course1: semester, course2: semester, ... } - the semester chosen to take the course
+Pre_reqs_by_course = { course1: [pre_req1, pre_req2, ...], course2: [pre_req1, pre_req2, ...], ... } -- prereqs for each course - may be empty
+professors_by_course_by_semester = { course1: { semester1: professor, semester2: professor, ... }, course2: { semester1: professor, semester2: professor, ... }, ... }
+"""
 
-    # Read in the csv file
-    df = pd.read_csv('data/all_predictions_with_nonans_edited_by_goatshu.csv')
+ 
+def get_interactive_graph_data(opt_log, df):
 
-    # Filter the DataFrame for the specified courses
-    filtered_df = df[df['Course'].isin(course_list)]
-    
-    # Extract GPAs for these courses across all semesters and store in a dict
-    gpas = {}
-    for course in course_list:
-        course_data = filtered_df[filtered_df['Course'] == course]
-        gpas[course] = course_data[['Pred_1', 'Pred_2', 'Pred_3', 'Pred_4', 'Pred_5', 'Pred_6', 'Pred_7', 'Pred_8']].values.tolist()
-    
-    return gpas
+    # check if opt_log is a float
+    if isinstance(opt_log, float):
+        print("opt_log is a float - returning None")
+        return None, None, None, None
+
+    else:
+        # get gpas
+        df_gpa = df[["Course", "Pred_1", "Pred_2", "Pred_3", "Pred_4","Pred_5", "Pred_6","Pred_7", "Pred_8"]]
+        gpa_list = []
+
+        for index,row in df_gpa.iterrows():
+            gpa_list.append(row.tolist())
+
+        gpa_dict = {k[0]:[k[1:]] for k in gpa_list}
+
+        # get professors
+        df_prof = df[["Course", "Instructor_1", "Instructor_2", "Instructor_3", "Instructor_4","Instructor_5", "Instructor_6","Instructor_7", "Instructor_8"]]
+        prof_list = []
+
+        for index,row in df_prof.iterrows():
+            prof_list.append(row.tolist())
+
+        prof_dict = {k[0]:k[1:] for k in prof_list}
+
+        # get chosen semesters
+        opt_log = opt_log[2]
+
+        semester_by_course = {}
+        for i in range(len(opt_log)):
+            for j in range(len(opt_log[i])):
+                semester_by_course[opt_log[i][j][0]] = i+1
+
+        # get prereqs
+        df['Pre-req'] = df['Pre-req'].astype(str)
+
+        df_prereqs = df[["Course", "Pre-req"]]
+        
+
+        pre_reqs_list =[]
+        for index,row in df_prereqs.iterrows():
+            pre_reqs_list.append(row.tolist())
+
+        prereqs_by_course = {k[0]:k[1].strip("[]").replace("'", "").split(",") if k[1] != "['']" else [] for k in pre_reqs_list}
+
+
+        return gpa_dict, semester_by_course, prereqs_by_course, prof_dict
