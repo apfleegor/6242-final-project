@@ -42,7 +42,13 @@ def run_optimization():
 
     # get opt log, a string (for now, some kind of dict later?)
     # opt_log = optimize(semesters, minHours, maxHours, df_fill)
-    opt_log, df_graph = run(course_list, minHours, maxHours, summer=summer)
+
+    # check if returning error
+    running = run(course_list, minHours, maxHours, summer=summer)
+    if running=="ERROR":
+        return "ERROR"
+    else:
+        opt_log, df_graph = run(course_list, minHours, maxHours, summer=summer)
 
     # df_graph.to_csv("df_graph.csv")
     
