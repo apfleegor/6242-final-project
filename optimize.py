@@ -119,3 +119,24 @@ def optimize(semesters, min_hours, max_hours, df_fill):
 # df_fill
 # x = optimize(4, 10, 12, df_fill)
 # print(x)
+
+
+
+# Use this function to get all the predicted GPAs for the chosen courses
+# also return the semester chosen to take it 
+
+def get_gpas_for_courses(course_list):
+
+    # Read in the csv file
+    df = pd.read_csv('data/all_predictions_with_nonans_edited_by_goatshu.csv')
+
+    # Filter the DataFrame for the specified courses
+    filtered_df = df[df['Course'].isin(course_list)]
+    
+    # Extract GPAs for these courses across all semesters and store in a dict
+    gpas = {}
+    for course in course_list:
+        course_data = filtered_df[filtered_df['Course'] == course]
+        gpas[course] = course_data[['Pred_1', 'Pred_2', 'Pred_3', 'Pred_4', 'Pred_5', 'Pred_6', 'Pred_7', 'Pred_8']].values.tolist()
+    
+    return gpas

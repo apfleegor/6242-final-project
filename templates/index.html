@@ -42,7 +42,7 @@
                   <option value="9">9</option>
                   <option value="10">10</option>
                   <option value="11">11</option>
-                  <option value="12">12</option>
+                  <option value="12" selected>12</option>
                   <option value="13">13</option>
                   <option value="14">14</option>
                   <option value="15">15</option>
@@ -66,7 +66,7 @@
                   <option value="6">6</option>
                   <option value="7">7</option>
                   <option value="8">8</option>
-                  <option value="9">9</option>
+                  <option value="9" selected>9</option>
                   <option value="10">10</option>
                   <option value="11">11</option>
                   <option value="12">12</option>
@@ -205,23 +205,27 @@
           </div>
         </div>
 
-      <!-- FEYZ'S GRAPH GOES IN THIS!!!!!!! -->
+    <!-- FEYZ'S GRAPH GOES IN THIS!!!!!!! -->
     <div class="row">
       <div class="col">
         <div class="card">
           <div class="card-header">
-            Graphs
+            Interactive Graphs
           </div>
           <div class="card-body">
-            <div id="bar-chart"></div>
-            <p id="optimization_results">Opt results will be displayed here.</p>
+            <div id="interactiveLineChart"></div>
+            <p id="Interactive_Graph">Interactive Graph will be displayed here.</p>
           </div>
         </div>
       </div>
     </div>
+
     
   </div>
 </body>
+
+<div id="tooltip" ></div>
+
 
 <footer>
   <div class="text-center p-3" style="background-color: #a9995e;">
@@ -238,13 +242,71 @@
 <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
 <script src="https://d3js.org/d3.v5.min.js"></script>
 <script src="https://kit.fontawesome.com/2cf014cd27.js" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3-tip/0.9.1/d3-tip.min.js"></script>
+
 
 <script type="text/javascript">
 
+// dummy data for interactive charts
+  const dummy_gpas = {
+        "Course1": [[2, 2.5, 3, 3.5, 4, 3.8, 3.6, 3.2]],
+        "Course2": [[2.1, 2.6, 3.1, 3.6, 4, 3.7, 3.5, 3.1]],
+        "Course3": [[2.2, 2.7, 3.2, 3.7, 3.9, 3.6, 3.4, 3.0]],
+        "Course4": [[2.3, 2.8, 3.3, 3.8, 3.8, 3.5, 3.3, 2.9]],
+        "Course5": [[2.4, 2.9, 3.4, 3.9, 3.7, 3.4, 3.2, 2.8]],
+        "Course6": [[2.5, 3.0, 3.5, 4, 3.6, 3.3, 3.1, 2.7]],
+        "Course7": [[2.6, 3.1, 3.6, 4, 3.5, 3.2, 3.0, 2.6]],
+        "Course8": [[2.7, 3.2, 3.7, 3.9, 3.4, 3.1, 2.9, 2.5]],
+        "Course9": [[2.8, 3.3, 3.8, 3.8, 3.3, 3.0, 2.8, 2.4]],
+        "Course10": [[2.9, 3.4, 3.9, 3.7, 3.2, 2.9, 2.7, 2.3]],
+        "Course11": [[3.0, 3.5, 4, 3.6, 3.1, 2.8, 2.6, 2.2]],
+        "Course12": [[3.1, 3.6, 4, 3.5, 3.0, 2.7, 2.5, 2.1]]
+    };
+
+    // tooltip for the interactive chart
+    const tooltip = d3.select("body").append("div")
+    .attr("id", "tooltip")
+    .style("position", "absolute")
+    .style("visibility", "hidden")
+    .style("pointer-events", "none")
+    .style("padding", "6px")
+    .style("background", "rgba(0, 0, 0, 0.8)")
+    .style("color", "#fff")
+    .style("border-radius", "4px")
+    
+
+  const dummy_semesters = {
+    "Course1": 3, "Course2": 2, "Course3": 4, "Course4": 5,
+    "Course5": 6, "Course6": 7, "Course7": 8, "Course8": 1,
+    "Course9": 2, "Course10": 3, "Course11": 4, "Course12": 5
+  };
+
+  const dummy_prereqs = {
+  "Course1": ["Course2", "Course3"],
+  "Course2": ["Course4"],
+  "Course3": [],
+  "Course4": ["Course1"],
+  "Course5": ["Course6"],
+  "Course6": ["Course7", "Course8"],
+  "Course7": [],
+  "Course8": ["Course9"],
+  "Course9": ["Course10"],
+  "Course10": [],
+  "Course11": ["Course12"],
+  "Course12": []
+  };
+
+ 
+
+
+  
   const classes_url = "../static/classes.json"
 
   // Loads in first course after DOM loads in
   d3.json(classes_url).then(function(data){
+
+    //  dummy data for the interactive chart - will remove 
+
 
     classes = data;
 
@@ -302,32 +364,8 @@
     //////////////////////////////////////////////
   });
   
-  // FUTURE SITE OF FEYZ'S PLOTLY CODE / GRAPHS
-  // -----------------------------------------------------------------------------
-  // DUMMY CODE FOR PLOTLY
-  // Takes in min/max hours as values, and plots them when button is pressed
-  var minSelect = document.getElementById("minPrompt"); 
-  var maxSelect = document.getElementById("maxPrompt"); 
-  var seeDataBtn = document.getElementById("optimize"); 
-  var barChartDiv = document.getElementById("bar-chart");
 
-  // Initialize chart values 
-  var minVal = 0;
-  var maxVal = 0; 
-  // When dropdowns change, update values 
-  minSelect.addEventListener('change', function() { minVal = this.value; }); 
-  maxSelect.addEventListener('change', function() { maxVal = this.value; }); 
-  seeDataBtn.addEventListener('click', function() { 
-      // Input data 
-      var data2 = [{ 
-          x: ['Min Credits', 'Max Credits'], 
-          y: [minVal, maxVal], type: 'bar' 
-      }]; 
-      // Plotly layout
-      var layout = { title: 'Credit Range' };
-      // Display chart 
-      Plotly.newPlot(barChartDiv, data2, layout); 
-  }); 
+  
 // -----------------------------------------------------------------------------
 
 
@@ -410,6 +448,206 @@ function createTable(optimize_output, summer) {
   // -----------------------------------------------------------------------------
 
 
+// Function to draw interactive line chart
+function drawInteractiveLineChart(gpas, semesters,prereqs) {
+  console.log("drawInteractiveLineChart called with data:", gpas);
+
+  // Transform data
+  let courseData = [];
+  Object.keys(gpas).forEach(course => {
+    let maxGpa = d3.max(gpas[course][0]);
+    let minGpa = d3.min(gpas[course][0]);
+    gpas[course][0].forEach((gpa, semesterIndex) => {
+      courseData.push({ 
+        course, 
+        semester: semesterIndex + 1, 
+        gpa, 
+        isMax: gpa === maxGpa,
+        isMin: gpa === minGpa
+      });
+    });
+  });
+
+  // Group data by course
+  let dataNest = d3.nest()
+    .key(function(d) { return d.course; })
+    .entries(courseData);
+
+  // Dimensions and margins
+  const margin = { top: 30, right: 50, bottom: 60, left: 50 };
+  const width = 1100 - margin.left - margin.right;
+  const height = 600 - margin.top - margin.bottom;
+
+  // Remove existing SVG
+  d3.select("#interactiveLineChart").selectAll("*").remove();
+
+  // SVG container
+  const svg = d3.select("#interactiveLineChart")
+    .append("svg")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+    .append("g")
+    .attr("transform", `translate(${margin.left},${margin.top})`);
+
+  // Tooltip
+  var tip = d3.tip()
+    .attr('class', 'd3-tip')
+    .style("visibility", "visible")
+    .style("background", "grey")
+    .offset([-10, 0])
+    .html(function(d) {
+      // tooltip contets
+      let maxGpa = d3.max(gpas[d.course][0]);
+      let minGpa = d3.min(gpas[d.course][0]);
+      let gpa = gpas[d.course][0][semesters[d.course] - 1];
+      let prereqText = prereqs[d.course].length > 0 ? prereqs[d.course].join(", ") : "None";
+      return `Max GPA: ${maxGpa}<br>Min GPA: ${minGpa} <br> Model GPA: ${gpa} <br>Prereqs: ${prereqText}`;
+    });
+
+  svg.call(tip);
+
+  // get max semester val
+  const firstKey = Object.keys(dummy_gpas)[0];
+  const maxSemester = dummy_gpas[firstKey][0].length;
+
+  // Scales
+  const xScale = d3.scaleLinear().domain([1, maxSemester]).range([0, width]);
+  const yScale = d3.scaleLinear().domain([2, 4]).range([height, 0]);
+
+  // Colors
+  const color = d3.scaleOrdinal(d3.schemeCategory10);
+
+  // Add X and Y axis
+  svg.append("g")
+  .attr("transform", `translate(0,${height})`)
+  .call(d3.axisBottom(xScale)
+    .tickFormat(d3.format('d'))  // Format as integer
+    .ticks(maxSemester));
+
+
+  svg.append("g").call(d3.axisLeft(yScale));
+
+  // Line generator
+  const line = d3.line()
+    .x(d => xScale(d.semester))
+    .y(d => yScale(d.gpa));
+
+  // Draw the lines and squares for max GPA
+  dataNest.forEach(function(d, i) {
+    const group = svg.append("g").attr("class", "course-group");
+
+    group.append("path")
+      .data([d.values])
+      .attr("class", "line")
+      .style("stroke", function() { return color(d.key); })
+      .style("stroke-width", "2px")
+      .attr("fill", "none")
+      .attr("d", line);
+
+    // Draw squares for max GPA
+    group.selectAll("rect.max-gpa")
+      .data(d.values.filter(v => v.isMax))
+      .enter().append("rect")
+      .attr("width", 10)
+      .attr("height", 10)
+      .attr("x", function(d) { return xScale(d.semester) - 5; })
+      .attr("y", function(d) { return yScale(d.gpa) - 5; })
+      .style("fill", function() { return color(d.key); })
+      .on("mouseover", tip.show)
+      .on("mouseout", tip.hide); 
+
+    // Draw circles for other points
+    group.selectAll("circle")
+      .data(d.values.filter(v => !v.isMax))
+      .enter().append("circle")
+      .attr("r", 5)
+      .attr("cx", function(d) { return xScale(d.semester); })
+      .attr("cy", function(d) { return yScale(d.gpa); })
+      .style("fill", function() { return color(d.key); })
+      .on("mouseover", tip.show)
+      .on("mouseout", tip.hide); 
+
+
+  });
+
+
+  Object.keys(semesters).forEach(course => {
+    let semester = semesters[course];
+    svg.selectAll(".dot")
+       .data(courseData.filter(d => d.course === course && d.semester === semester))
+       .enter().append("path")
+       .attr("d", d3.symbol().type(d3.symbolDiamond).size(192))
+       .attr("transform", d => `translate(${xScale(d.semester)}, ${yScale(d.gpa)})`)
+       .attr("fill", color(course))
+       .on("mouseover", tip.show)
+      .on("mouseout", tip.hide);
+  });
+
+  // Interaction: Highlight the course's line and dim others
+  svg.selectAll(".course-group")
+    .on("mouseover", function(event, d) {
+      // Dim all lines
+      svg.selectAll(".line").style("opacity", 0.1);
+      // Highlight hovered line
+      d3.select(this).select(".line").style("opacity", 1);
+    })
+    .on("mouseout", function(event, d) {
+      // Reset opacity
+      svg.selectAll(".line").style("opacity", 1);
+    });
+
+
+
+
+  // Add legend
+
+  const legendEntryWidth = 100; // Width of each legend entry
+  const legendEntryHeight = 18; // Height of each legend entry
+  const legendColumns = 2; // Number of columns in the legend
+
+
+  const legend = svg.selectAll(".legend")
+  .data(dataNest)
+  .enter().append("g")
+  .attr("class", "legend")
+  .attr("transform", function(d, i) {
+    // Calculate row and column position
+    const col = i % legendColumns;
+    const row = Math.floor(i / legendColumns);
+    const x = width*1.02 - (legendColumns - col) * legendEntryWidth;
+    const y = row * legendEntryHeight - height*0.05;
+    return "translate(" + x + "," + y + ")";
+  });
+
+      legend.append("rect")
+  .attr("width", 10)
+  .attr("height", 10)
+  .style("fill", function(d) { return color(d.key); });
+
+legend.append("text")
+  .attr("x", 15)
+  .attr("y", 10)
+  .text(function(d) { return d.key; });
+
+  // Add X and Y axis labels
+  svg.append("text")
+    .attr("transform", "translate(" + (width/2) + " ," + (height + margin.bottom - 20) + ")")
+    .style("text-anchor", "middle")
+    .text("Semester#");
+
+  svg.append("text")
+    .attr("transform", "rotate(-90)")
+    .attr("y", 0 - margin.left)
+    .attr("x",0 - (height / 2))
+    .attr("dy", "1em")
+    .style("text-anchor", "middle")
+    .text("GPA");  
+  console.log("Graph should be drawn now");
+};
+
+
+
+
 function optimize_from_html(course_list) {
   // console.log(course_list)
   // console.log("----------------")
@@ -443,7 +681,6 @@ function optimize_from_html(course_list) {
     // Update the result on the webpage
     // console.log(data.opt_log)
     createTable(data.opt_log, summer_final);
-
     // document.getElementById('optimization_results').innerText = 'RESULTS:\n' + data.opt_log;
   })
   .catch(error => console.error('Error:', error));
@@ -453,20 +690,26 @@ function optimize_from_html(course_list) {
 // get the courses from the selection into the schedule
 document.getElementById("optimize")
         .addEventListener("click", function() {
-    
-  // working on getting info from course selection
-  course_div = document.getElementById("courseSelection")
-  options = course_div.getElementsByTagName("input")
 
-  courses_list = []
-  for (let i=0; i<options.length; i++) {
-    courses_list.push(options[i].value)
-  }
-  console.log(courses_list)
+    // code for interactive line chart
+    document.getElementById("Interactive_Graph").innerText = "Interactive Graph should now be displayed here.";
+    console.log("Drawing graph with dummy data");
 
-  optimize_from_html(courses_list)
+    drawInteractiveLineChart(dummy_gpas, dummy_semesters, dummy_prereqs);
 
+    // working on getting info from course selection
+    course_div = document.getElementById("courseSelection")
+    options = course_div.getElementsByTagName("input")
+
+    courses_list = []
+    for (let i=0; i<options.length; i++) {
+      courses_list.push(options[i].value)
+    }
+    console.log(courses_list)
+
+    optimize_from_html(courses_list)
 });
+
 
 // Event listener for 'Clear Classes' button
 document.getElementById("clearClasses").addEventListener("click", function() {
