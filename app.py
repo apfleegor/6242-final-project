@@ -60,7 +60,6 @@ def run_optimization():
     print(opt_log)
 
 
-    
 
     # we can change this so that we can retrieve {sem1: {...}} or more creative 
     # formats to customize retrieval

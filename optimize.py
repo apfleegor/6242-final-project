@@ -134,13 +134,15 @@ professors_by_course_by_semester = { course1: { semester1: professor, semester2:
 
  
 def get_interactive_graph_data(opt_log, df):
-
     # check if opt_log is a float
     if isinstance(opt_log, float):
         print("opt_log is a float - returning None")
         return None, None, None, None
 
     else:
+
+        length = opt_log[1] # number of semesters
+
         # get gpas
         df_gpa = df[["Course", "Pred_1", "Pred_2", "Pred_3", "Pred_4","Pred_5", "Pred_6","Pred_7", "Pred_8"]]
         gpa_list = []
@@ -149,6 +151,7 @@ def get_interactive_graph_data(opt_log, df):
             gpa_list.append(row.tolist())
 
         gpa_dict = {k[0]:[k[1:]] for k in gpa_list}
+        gpa_dict = {k:[gpa_dict[k][0][:length]] for k in gpa_dict.keys()}
 
         # get professors
         df_prof = df[["Course", "Instructor_1", "Instructor_2", "Instructor_3", "Instructor_4","Instructor_5", "Instructor_6","Instructor_7", "Instructor_8"]]
@@ -158,12 +161,14 @@ def get_interactive_graph_data(opt_log, df):
             prof_list.append(row.tolist())
 
         prof_dict = {k[0]:k[1:] for k in prof_list}
+        prof_dict = {k:[prof_dict[k][:length]] for k in prof_dict.keys()}
+
 
         # get chosen semesters
         opt_log = opt_log[2]
 
         semester_by_course = {}
-        for i in range(len(opt_log)):
+        for i in range(length):
             for j in range(len(opt_log[i])):
                 semester_by_course[opt_log[i][j][0]] = i+1
 

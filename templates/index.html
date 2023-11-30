@@ -524,8 +524,8 @@ function drawInteractiveLineChart(gpas, semesters,prereqs, professors) {
   svg.call(tip);
 
   // get max semester val
-  const firstKey = Object.keys(dummy_gpas)[0];
-  const maxSemester = dummy_gpas[firstKey][0].length;
+  const firstKey = Object.keys(gpas)[0];
+  const maxSemester = gpas[firstKey][0].length;
 
   lowestGpa = Math.floor(lowestGpa * 10) / 10;
   highestGpa = Math.ceil(highestGpa * 10) / 10;
@@ -540,11 +540,15 @@ function drawInteractiveLineChart(gpas, semesters,prereqs, professors) {
   const color = d3.scaleOrdinal(d3.schemeCategory10);
 
   // Add X and Y axis
+ // Add X axis
   svg.append("g")
-  .attr("transform", `translate(0,${height})`)
-  .call(d3.axisBottom(xScale)
-    .tickFormat(d3.format('d'))  // Format as integer
-    .ticks(maxSemester));
+    .attr("transform", `translate(0,${height})`)
+    .call(d3.axisBottom(xScale)
+      .tickFormat(d3.format('d')) // Format as integer
+      .ticks(maxSemester) // Set the number of ticks to the maximum semester value
+      .tickValues(d3.range(1, maxSemester + 1)) // Explicitly set tick values
+    );
+
 
 
   svg.append("g").call(d3.axisLeft(yScale));
