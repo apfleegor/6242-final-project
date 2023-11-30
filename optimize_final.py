@@ -14,6 +14,8 @@ import math
 # FEYZI NOTE 11/30/2023: I made it return the a df so that I can display it in the graph
 
 def run( list_of_courses, min_hours, max_hours, summer=0, pr=None, df=pd.read_csv('data/all_predictions_with_nonans_edited_by_goatshu.csv')):
+    if max_hours<min_hours or max_hours<3:
+        return "ERROR"
     print(list_of_courses)
     pd.options.mode.chained_assignment = None
     df = df[df['Course'].isin(list_of_courses)]
@@ -94,6 +96,8 @@ def run( list_of_courses, min_hours, max_hours, summer=0, pr=None, df=pd.read_cs
                     for j in df_precs["Pre-req"][i]:
                             model += pp.lpSum(when[(k,i)]*(k+1) for k in range(semesters)) >= pp.lpSum(when[(k,j)]*(k+1) for k in range(semesters)) + 1
             model.solve()
+            if model.status!=pp.LpStatusOptimal:
+                return "ERROR"
             if model.status == pp.LpStatusOptimal and summer==0:
                 output=[[] for _ in range(3)]
                 empty_lists = [[] for _ in range(semesters)]
