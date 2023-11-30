@@ -219,9 +219,12 @@
         </div>
       </div>
     </div>
-
     
   </div>
+
+  <!-- ERROR
+  <div id="error"></div> -->
+
 </body>
 
 <div id="tooltip" ></div>
@@ -674,6 +677,13 @@ legend.append("text")
 
 // ------------------------------------------------------------------------------------------------
 
+// function error_message() {
+
+// };
+
+
+
+// ------------------------------------------------------------------------------------------------
 
 
 function optimize_from_html(course_list) {
@@ -683,6 +693,10 @@ function optimize_from_html(course_list) {
   var minHours = document.getElementById('minPrompt').value;
   var maxHours = document.getElementById('maxPrompt').value;
   var summer_bool = document.getElementById('summerPrompt').value;
+
+  console.log(summer_bool)
+  console.log(minHours)
+  console.log(maxHours)
 
   // convert to 0 or 1
   summer_final = 0;
@@ -708,13 +722,23 @@ function optimize_from_html(course_list) {
     // console.log("testing")
     // Update the result on the webpage
     // console.log(data.opt_log)
-    console.log("GPA DATA:", data.gpas)
-    console.log("Semester DATA:",data.semesters)
-    console.log("Prereqs DATA:",data.prereqs)
-    console.log("Profs DATA:",data.professors)
+    // console.log("GPA DATA:", data.gpas)
+    // console.log("Semester DATA:",data.semesters)
+    // console.log("Prereqs DATA:",data.prereqs)
+    // console.log("Profs DATA:",data.professors)
 
-    createTable(data.opt_log, summer_final);
-    drawInteractiveLineChart(data.gpas, data.semesters, data.prereqs, data.professors);
+
+    if (data.opt_log=="ERROR") {
+      alert("Infeasible. Please check your inputs.");
+      // error_message()
+
+    } else {
+      console.log("here2")
+      createTable(data.opt_log, summer_final);
+      drawInteractiveLineChart(data.gpas, data.semesters, data.prereqs, data.professors);
+    }
+
+    
     // drawInteractiveLineChart(dummy_gpas, dummy_semesters, dummy_prereqs, dummy_professors)
     
     // document.getElementById('optimization_results').innerText = 'RESULTS:\n' + data.opt_log;
@@ -724,28 +748,30 @@ function optimize_from_html(course_list) {
 
 
 // get the courses from the selection into the schedule
-document.getElementById("optimize")
-        .addEventListener("click", function() {
+document.getElementById("optimize").addEventListener("click", function() {
+    
+  console.log("------")
+  console.log(document.getElementById("maxPrompt").value)
 
-    // code for interactive line chart
-    document.getElementById("Interactive_Graph").innerText = "Interactive Graph should now be displayed here.";
-    console.log("Drawing graph with dummy data");
+  // code for interactive line chart
+  document.getElementById("Interactive_Graph").innerText = "Interactive Graph should now be displayed here.";
+  console.log("Drawing graph with dummy data");
 
-    // drawInteractiveLineChart(dummy_gpas, dummy_semesters, dummy_prereqs, dummy_professors);
+  // drawInteractiveLineChart(dummy_gpas, dummy_semesters, dummy_prereqs, dummy_professors);
 
 
 
-    // working on getting info from course selection
-    course_div = document.getElementById("courseSelection")
-    options = course_div.getElementsByTagName("input")
+  // working on getting info from course selection
+  course_div = document.getElementById("courseSelection")
+  options = course_div.getElementsByTagName("input")
 
-    courses_list = []
-    for (let i=0; i<options.length; i++) {
-      courses_list.push(options[i].value)
-    }
-    console.log(courses_list)
+  courses_list = []
+  for (let i=0; i<options.length; i++) {
+    courses_list.push(options[i].value)
+  }
+  console.log(courses_list)
 
-    optimize_from_html(courses_list)
+  optimize_from_html(courses_list)
 });
 
 

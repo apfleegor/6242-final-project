@@ -60,6 +60,7 @@
     background-color: #a9995e
 }
 
+/* maybe change color? */
 #tooltip {
     position: absolute;
     background: rgba(0, 0, 0, 0.8);
@@ -67,3 +68,5 @@
     border-radius: 4px;
     padding: 6px;
 }
+
+

@@ -17,7 +17,7 @@ app = Flask(__name__)
 @app.route('/')
 def home():
     # note: can send data to index.html through this function
-    return render_template("index.html")
+    return render_template("index copy.html")
 
 @app.route('/run_optimization', methods=['POST'])
 def run_optimization():
@@ -45,10 +45,16 @@ def run_optimization():
 
     # check if returning error
     running = run(course_list, minHours, maxHours, summer=summer)
+    print(running)
+    # print(running)
+    # print("--------------")
+    # print(jsonify({"ERROR": "error"}))
+    # print(jsonify("ERROR"))
     if running=="ERROR":
-        return "ERROR"
-    else:
-        opt_log, df_graph = run(course_list, minHours, maxHours, summer=summer)
+        result = {"opt_log": "ERROR"}
+        return jsonify(result)
+    
+    opt_log, df_graph = run(course_list, minHours, maxHours, summer=summer)
 
     # df_graph.to_csv("df_graph.csv")
     
