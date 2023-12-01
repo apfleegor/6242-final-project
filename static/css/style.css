@@ -40,6 +40,21 @@
     margin: 10px;
 }
 
+/* .card-deck{
+    margin-left: 0px;
+    margin-right: 0px;
+} */
+
+.card-deck .cw-30 {
+    flex: 1 0 30%;
+    max-width: 30%;
+}
+
+.card-deck .cw-70 {
+    flex: 1 0 70%;
+    max-width: 90%;
+}
+
 .d-block {
     color: black
 }
@@ -67,4 +82,9 @@
     color: #fff;
     border-radius: 4px;
     padding: 6px;
+}
+
+#margins{
+    margin-right: -1.25rem;
+    margin-left: -1.25rem;
 }
