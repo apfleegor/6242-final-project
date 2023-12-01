@@ -2,12 +2,9 @@
 # INCLUDES NO MAIN METHOD, OPTIMIZE RETURNS A STRING
 
 import pandas as pd
-import numpy as np
 import random
 import copy
 import pulp as pp
-import math
-import sys
 pd.options.mode.chained_assignment = None
 
 #BOTH ARE FILLING FUNCTIONS SUPER SIMPLE RANDOM SHIT

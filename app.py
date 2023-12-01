@@ -17,7 +17,7 @@ app = Flask(__name__)
 @app.route('/')
 def home():
     # note: can send data to index.html through this function
-    return render_template("index copy.html")
+    return render_template("index.html")
 
 @app.route('/run_optimization', methods=['POST'])
 def run_optimization():
@@ -27,57 +27,37 @@ def run_optimization():
     # Get parameters from the request (assuming they are in JSON format)
     data = request.get_json()
     print('Received data:', data)
+
+    # put data into variables
     summer = int(data.get('summer'))
-    # print("----------------")
-    # print(semesters)
     minHours = int(data.get('minHours'))
-    # print(minHours)
     maxHours = int(data.get('maxHours'))
-    # print(semesters, minHours, maxHours)
     course_list = data.get('course_list')
     prereqs = data.get('prereqs')
 
+    # DO WE NEED THIS ANYMORE?
     df = pd.read_csv('data/ISYE_SAMPLE.csv')
-    # print(df)
-    # df_fill=fill_preds(fill_pre(df))
-
-    # get opt log, a string (for now, some kind of dict later?)
-    # opt_log = optimize(semesters, minHours, maxHours, df_fill)
-
+    
     # check if returning error
     running = run(course_list, minHours, maxHours, summer=summer, pr=prereqs)
-    print(running)
-    # print(running)
-    # print("--------------")
-    # print(jsonify({"ERROR": "error"}))
-    # print(jsonify("ERROR"))
+    
     if running=="ERROR":
         result = {"opt_log": "ERROR"}
         return jsonify(result)
     
+    # if not returning error, then save the results
     opt_log, df_graph = run(course_list, minHours, maxHours, summer=summer, pr=prereqs)
-
-    # df_graph.to_csv("df_graph.csv")
-    
-    # save opt log to a text file
-    # with open("opt_log.txt", "w") as f:
-    #     f.write(str(opt_log))
 
     # get gpas
     gpa_dict, semester_by_course, prereqs_by_course, prof_dict = get_interactive_graph_data(opt_log, df_graph )
 
-    # opt_log = run(['ISYE 6501', 'ISYE 6414', 'CSE 6242', 'ISYE 6669', 'MGT 8803', 'CSE 6040'], 5, 12, summer=summer)
-    # opt_log = [3.6551637842884044, 2, [[['ISYE 6414',3.499326780769436], ['MGT 8803', 3.8339323963212553], ['CSE 6040', 3.6196010600730615]], [['ISYE 6501', 3.6312633902786087], ['CSE 6242', 3.9702462718971048], ['ISYE 6669', 3.3766128063909586]]]]
-
-    print("opt_log is: ")
+    # print opt_log
     print(opt_log)
-
 
 
     # we can change this so that we can retrieve {sem1: {...}} or more creative 
     # formats to customize retrieval
     # return jsonify({"opt_log":opt_log})
-
     result = {
             "opt_log": opt_log,
             "gpas": gpa_dict,
