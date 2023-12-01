@@ -1,13 +1,7 @@
 from flask import Flask, render_template, jsonify, request
-from optimize import fill_pre, fill_preds, optimize, get_interactive_graph_data
+from optimize import get_interactive_graph_data
 from optimize_final import run
 import pandas as pd
-import numpy as np
-import random
-import copy
-import pulp as pp
-import math
-import sys
 pd.options.mode.chained_assignment = None
 
 # create instance of Flask

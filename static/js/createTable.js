@@ -1,7 +1,7 @@
 
-// -----------------------------------------------------------------------------
 // CREATING TABLE
 function createTable(optimize_output, summer) {
+
     // Access the HTML elements for the table and its body
     var table_select = document.getElementById("schedule");
     var body_select = document.getElementById("tableBody");
@@ -36,42 +36,42 @@ function createTable(optimize_output, summer) {
     let semesterIndex = 0; // 0: Fall, 1: Spring, 2: Summer (if applicable)
 
     optimize_output[2].forEach((semesterCourses) => {
-    // Determine if it's a new academic year
-    if (semesterIndex === 0) {
-    // Create a new row for the new academic year
-        var row = body_select.insertRow(-1);
-        row.insertCell(0).innerHTML = year_list[currentYearIndex];
-        row.insertCell(1); // Fall
-        row.insertCell(2); // Spring
-    if (summer === 1) {
-        row.insertCell(3); // Summer
-    }
-    row.insertCell(summer === 1 ? 4 : 3); // End of Year GPA
-    } else {
-        // Access the existing row for the current academic year
-        row = body_select.rows[currentYearIndex];
-    }
+        // Determine if it's a new academic year
+        if (semesterIndex === 0) {
+            // Create a new row for the new academic year
+            var row = body_select.insertRow(-1);
+            row.insertCell(0).innerHTML = year_list[currentYearIndex];
+            row.insertCell(1); // Fall
+            row.insertCell(2); // Spring
+            if (summer === 1) {
+                row.insertCell(3); // Summer
+            }
+            row.insertCell(summer === 1 ? 4 : 3); // End of Year GPA
+        } else {
+            // Access the existing row for the current academic year
+            row = body_select.rows[currentYearIndex];
+        }
 
-    // Fill in course details and accumulate GPA
-    semesterCourses.forEach(course => {
-        let courseInfo = `${course[0]}: ${course[1].toFixed(2)}`;
-        row.cells[semesterIndex + 1].innerHTML += courseInfo + "<br>";
-        totalGPA += course[1];
-        numCourses++;
-    });
+        // Fill in course details and accumulate GPA
+        semesterCourses.forEach(course => {
+            let courseInfo = `${course[0]}: ${course[1].toFixed(2)}`;
+            row.cells[semesterIndex + 1].innerHTML += courseInfo + "<br>";
+            totalGPA += course[1];
+            numCourses++;
+        });
 
-    // Move to the next semester
-    semesterIndex++;
-    if ((semesterIndex === 2 && summer === 0) || (semesterIndex === 3 && summer === 1)) {
-        // Calculate average GPA and display
-        let averageGPA = numCourses > 0 ? (totalGPA / numCourses).toFixed(2) : "N/A";
-        row.cells[row.cells.length - 1].innerHTML = averageGPA;
+        // Move to the next semester
+        semesterIndex++;
+        if ((semesterIndex === 2 && summer === 0) || (semesterIndex === 3 && summer === 1)) {
+            // Calculate average GPA and display
+            let averageGPA = numCourses > 0 ? (totalGPA / numCourses).toFixed(2) : "N/A";
+            row.cells[row.cells.length - 1].innerHTML = averageGPA;
 
-        // Reset for the next year
-        totalGPA = 0;
-        numCourses = 0;
-        semesterIndex = 0;
-        currentYearIndex++;
-    }
+            // Reset for the next year
+            totalGPA = 0;
+            numCourses = 0;
+            semesterIndex = 0;
+            currentYearIndex++;
+        }
     });
 }

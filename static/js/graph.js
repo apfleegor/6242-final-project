@@ -1,4 +1,4 @@
-// ---------------------------------------------------------------------------------------------------
+
 // Function to draw interactive line chart
 function drawInteractiveLineChart(gpas, semesters,prereqs, professors) {
     console.log("drawInteractiveLineChart called with data:", gpas);

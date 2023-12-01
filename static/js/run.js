@@ -63,10 +63,10 @@ d3.json(classes_url).then(function(data){
 
     // Loops through courses to create dropdown
     for(var i = 0; i < classes.length; i++) {
-    var course1 = document.createElement("option");
-    course1.value = classes[i];
-    course1.text = classes[i];
-    courseBox.appendChild(course1);
+        var course1 = document.createElement("option");
+        course1.value = classes[i];
+        course1.text = classes[i];
+        courseBox.appendChild(course1);
     };
 
     // To limit to 8 courses inputted (to be changed)
@@ -136,12 +136,12 @@ d3.json(classes_url).then(function(data){
 // get the courses from the selection into the schedule
 document.getElementById("optimize").addEventListener("click", function() {
 
-    console.log("------")
-    console.log(document.getElementById("maxPrompt").value)
+    // console.log("------")
+    // console.log(document.getElementById("maxPrompt").value)
 
     // code for interactive line chart
     document.getElementById("Interactive_Graph").innerText = "Interactive Graph should now be displayed here.";
-    console.log("Drawing graph with dummy data");
+    // console.log("Drawing graph with dummy data");
 
     // drawInteractiveLineChart(dummy_gpas, dummy_semesters, dummy_prereqs, dummy_professors);
 
@@ -153,7 +153,7 @@ document.getElementById("optimize").addEventListener("click", function() {
     for (let i=0; i<options.length; i++) {
         courses_list.push(options[i].value)
     }
-    console.log(courses_list)
+    // console.log(courses_list)
 
     // get prereqs
     pre_div = document.getElementById("preReq")
@@ -163,7 +163,7 @@ document.getElementById("optimize").addEventListener("click", function() {
     for (let i=0; i<pre_options.length; i++) {
         pre_reqs_list.push([pre_options[i].value])
     }
-    console.log(pre_reqs_list)
+    // console.log(pre_reqs_list)
 
     optimize_from_html(courses_list, pre_reqs_list)
 });
@@ -206,7 +206,7 @@ document.getElementById("pre_reqs").addEventListener("click", function() {
     }
 
     var courseBox = document.getElementById("preOptions")
-    console.log(courseBox)
+    // console.log(courseBox)
 
     // Loops through courses to create dropdown
     for(var i = 0; i < courses_list.length; i++) {
