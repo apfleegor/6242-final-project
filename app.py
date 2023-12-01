@@ -11,7 +11,7 @@ app = Flask(__name__)
 @app.route('/')
 def home():
     # note: can send data to index.html through this function
-    return render_template("index copy 2.html")
+    return render_template("index.html")
 
 @app.route('/run_optimization', methods=['POST'])
 def run_optimization():
