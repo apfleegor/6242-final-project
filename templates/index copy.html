@@ -79,16 +79,6 @@
                     <button id="pre_reqs">Fill Prereqs</button>
                   </div>
                 </div>
-                <!-- <div class="col-3">
-                  <div class="mb-3" id="courseSelection">
-                    <label for="coursePrompt" class="form-label">Select your classes:</label>
-                    <input class="form-control" list="datalistOptions" id="coursePrompt" placeholder="Type to search...">
-                    <datalist id="datalistOptions">
-
-                    </datalist>
-                    <div id="newCourseClick"></div>
-                  </div>
-                </div> -->
               </div>
             </div>
           </div>
@@ -101,6 +91,7 @@
       <div class="col padding-r">
         <!-- methodology table -->
         <div class="row">
+          
           <div class="col-12">
             <div class="card">
               <div class="card-header">
@@ -179,39 +170,39 @@
       </div>
 
       <!-- first column -->
-      <div class="col-md-8 padding-l">
+      <div class="col-8 padding-l">
 
         <!-- schedule table -->
-            <div class="card">
-              <div class="card-header">
-                Schedule
-              </div>
-              <div class="card-body">
-                <table class="table", id="schedule">
-                  <thead>
-                    <tr>
-                      <th scope="col" style="width: 20%;">Year</th>
-                      <th scope="col">Fall</th>
-                      <th scope="col">Spring</th>
-                      <th scope="col">Summer</th>
-                      <th scope="col">End of Year GPA</th>
-                    </tr>
-                  </thead>
-                  <tbody id="tableBody">
-                    <tr>
-                      <!-- this is just the base -->
-                      <td>2024-2025</td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
+        <div class="card">
+          <div class="card-header">
+            Schedule
+          </div>
+          <div class="card-body">
+            <table class="table", id="schedule">
+              <thead>
+                <tr>
+                  <th scope="col" style="width: 20%;">Year</th>
+                  <th scope="col">Fall</th>
+                  <th scope="col">Spring</th>
+                  <th scope="col">Summer</th>
+                  <th scope="col">End of Year GPA</th>
+                </tr>
+              </thead>
+              <tbody id="tableBody">
+                <tr>
+                  <!-- this is just the base -->
+                  <td>2024-2025</td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                </tr>
+              </tbody>
+            </table>
           </div>
         </div>
+      </div>
+    </div>
 
     <!-- FEYZ'S GRAPH GOES IN THIS!!!!!!! -->
     <div class="row">
@@ -255,617 +246,626 @@
 <script src="https://kit.fontawesome.com/2cf014cd27.js" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-tip/0.9.1/d3-tip.min.js"></script>
 
+<script type="application/javascript" src="./../static/js/createTable.js"></script>
+<script type="application/javascript" src="./../static/js/graph.js"></script>
+<script type="application/javascript" src="./../static/js/optimize.js"></script>
+<script type="application/javascript" src="./../static/js/run.js"></script>
+
+
+
+
+
 
 <script type="text/javascript">
 
-      // tooltip for the interactive chart
-  const tooltip = d3.select("body").append("div")
-    .attr("id", "tooltip")
-    .style("position", "absolute")
-    .style("visibility", "hidden")
-    .style("pointer-events", "none")
-    .style("padding", "6px")
-    .style("background", "rgba(0, 0, 0, 0.8)")
-    .style("color", "#fff")
-    .style("border-radius", "4px")
+//   // tooltip for the interactive chart
+//   const tooltip = d3.select("body").append("div")
+//     .attr("id", "tooltip")
+//     .style("position", "absolute")
+//     .style("visibility", "hidden")
+//     .style("pointer-events", "none")
+//     .style("padding", "6px")
+//     .style("background", "rgba(0, 0, 0, 0.8)")
+//     .style("color", "#fff")
+//     .style("border-radius", "4px")
     
 
 
 
-// dummy data for interactive charts
-  const dummy_gpas = {
-        "Course1": [[2, 2.5, 3, 3.5, 4, 3.8, 3.6, 3.2]],
-        "Course2": [[2.1, 2.6, 3.1, 3.6, 4, 3.7, 3.5, 3.1]],
-        "Course3": [[2.2, 2.7, 3.2, 3.7, 3.9, 3.6, 3.4, 3.0]],
-        "Course4": [[2.3, 2.8, 3.3, 3.8, 3.8, 3.5, 3.3, 2.9]],
-        "Course5": [[2.4, 2.9, 3.4, 3.9, 3.7, 3.4, 3.2, 2.8]],
-        "Course6": [[2.5, 3.0, 3.5, 4, 3.6, 3.3, 3.1, 2.7]],
-        "Course7": [[2.6, 3.1, 3.6, 4, 3.5, 3.2, 3.0, 2.6]],
-        "Course8": [[2.7, 3.2, 3.7, 3.9, 3.4, 3.1, 2.9, 2.5]],
-        "Course9": [[2.8, 3.3, 3.8, 3.8, 3.3, 3.0, 2.8, 2.4]],
-        "Course10": [[2.9, 3.4, 3.9, 3.7, 3.2, 2.9, 2.7, 2.3]],
-        "Course11": [[3.0, 3.5, 4, 3.6, 3.1, 2.8, 2.6, 2.2]],
-        "Course12": [[3.1, 3.6, 4, 3.5, 3.0, 2.7, 2.5, 2.1]]
-    };
+// // dummy data for interactive charts
+//   const dummy_gpas = {
+//         "Course1": [[2, 2.5, 3, 3.5, 4, 3.8, 3.6, 3.2]],
+//         "Course2": [[2.1, 2.6, 3.1, 3.6, 4, 3.7, 3.5, 3.1]],
+//         "Course3": [[2.2, 2.7, 3.2, 3.7, 3.9, 3.6, 3.4, 3.0]],
+//         "Course4": [[2.3, 2.8, 3.3, 3.8, 3.8, 3.5, 3.3, 2.9]],
+//         "Course5": [[2.4, 2.9, 3.4, 3.9, 3.7, 3.4, 3.2, 2.8]],
+//         "Course6": [[2.5, 3.0, 3.5, 4, 3.6, 3.3, 3.1, 2.7]],
+//         "Course7": [[2.6, 3.1, 3.6, 4, 3.5, 3.2, 3.0, 2.6]],
+//         "Course8": [[2.7, 3.2, 3.7, 3.9, 3.4, 3.1, 2.9, 2.5]],
+//         "Course9": [[2.8, 3.3, 3.8, 3.8, 3.3, 3.0, 2.8, 2.4]],
+//         "Course10": [[2.9, 3.4, 3.9, 3.7, 3.2, 2.9, 2.7, 2.3]],
+//         "Course11": [[3.0, 3.5, 4, 3.6, 3.1, 2.8, 2.6, 2.2]],
+//         "Course12": [[3.1, 3.6, 4, 3.5, 3.0, 2.7, 2.5, 2.1]]
+//     };
 
 
-  const dummy_semesters = {
-    "Course1": 3, "Course2": 2, "Course3": 4, "Course4": 5,
-    "Course5": 6, "Course6": 7, "Course7": 8, "Course8": 1,
-    "Course9": 2, "Course10": 3, "Course11": 4, "Course12": 5
-  };
+//   const dummy_semesters = {
+//     "Course1": 3, "Course2": 2, "Course3": 4, "Course4": 5,
+//     "Course5": 6, "Course6": 7, "Course7": 8, "Course8": 1,
+//     "Course9": 2, "Course10": 3, "Course11": 4, "Course12": 5
+//   };
 
-  const dummy_prereqs = {
-  "Course1": ["Course2", "Course3"],
-  "Course2": ["Course4"],
-  "Course3": [],
-  "Course4": ["Course1"],
-  "Course5": ["Course6"],
-  "Course6": ["Course7", "Course8"],
-  "Course7": [],
-  "Course8": ["Course9"],
-  "Course9": ["Course10"],
-  "Course10": [],
-  "Course11": ["Course12"],
-  "Course12": []
-  };
+//   const dummy_prereqs = {
+//   "Course1": ["Course2", "Course3"],
+//   "Course2": ["Course4"],
+//   "Course3": [],
+//   "Course4": ["Course1"],
+//   "Course5": ["Course6"],
+//   "Course6": ["Course7", "Course8"],
+//   "Course7": [],
+//   "Course8": ["Course9"],
+//   "Course9": ["Course10"],
+//   "Course10": [],
+//   "Course11": ["Course12"],
+//   "Course12": []
+//   };
 
-  const dummy_professors = { 1: "1"}
+//   const dummy_professors = { 1: "1"}
 
 
 
   
-  const classes_url = "../static/classes.json"
+//   const classes_url = "../static/classes.json"
 
-  // Loads in first course after DOM loads in
-  d3.json(classes_url).then(function(data){
+//   // Loads in first course after DOM loads in
+//   d3.json(classes_url).then(function(data){
 
-    //  dummy data for the interactive chart - will remove 
-
-
-    classes = data;
-
-    var courseBox = document.getElementById("datalistOptions")
-
-    // Loops through courses to create dropdown
-    for(var i = 0; i < classes.length; i++) {
-      var course1 = document.createElement("option");
-      course1.value = classes[i];
-      course1.text = classes[i];
-      courseBox.appendChild(course1);
-    };
-
-    // To limit to 8 courses inputted (to be changed)
-    var courseCount = 2;
-    var MAX_CLASSES = 8;
-
-    // Function to dynamically add select box
-    function addSelectionBox() {
-
-      // Check if reached max
-      if(courseCount >= MAX_CLASSES) {
-        return;
-      }
-
-      // Increment counter
-      courseCount++;
-
-      // Create select element 
-      var newCourse = document.createElement("input");
-
-      // Set attributes
-      // <input class="form-control" list="datalistOptions" id="coursePrompt" placeholder="Type to search...">
-      newCourse.setAttribute("class", "form-control");
-      newCourse.setAttribute("list", "datalistOptions");
-      newCourse.setAttribute("id", "coursePrompt");
-      newCourse.setAttribute("placeholder", "Type to search...");
+//     //  dummy data for the interactive chart - will remove 
 
 
-      for(var i = 0; i < classes.length; i++) {
-        var course = document.createElement("option");
-        course.value = classes[i];
-        course.text = classes[i]; 
-        newCourse.appendChild(course);
-      }
+//     classes = data;
 
-      // new pre-req box
-      // Create select element 
-      var newPre = document.createElement("input");
+//     var courseBox = document.getElementById("datalistOptions")
 
-      // Set attributes
-      newPre.setAttribute("class", "form-control");
-      newPre.setAttribute("list", "preOptions");
-      newPre.setAttribute("id", "preReqPrompt");
-      newPre.setAttribute("placeholder", "Enter prereqs...");
+//     // Loops through courses to create dropdown
+//     for(var i = 0; i < classes.length; i++) {
+//       var course1 = document.createElement("option");
+//       course1.value = classes[i];
+//       course1.text = classes[i];
+//       courseBox.appendChild(course1);
+//     };
+
+//     // To limit to 8 courses inputted (to be changed)
+//     var courseCount = 2;
+//     var MAX_CLASSES = 8;
+
+//     // Function to dynamically add select box
+//     function addSelectionBox() {
+
+//       // Check if reached max
+//       if(courseCount >= MAX_CLASSES) {
+//         return;
+//       }
+
+//       // Increment counter
+//       courseCount++;
+
+//       // Create select element 
+//       var newCourse = document.createElement("input");
+
+//       // Set attributes
+//       // <input class="form-control" list="datalistOptions" id="coursePrompt" placeholder="Type to search...">
+//       newCourse.setAttribute("class", "form-control");
+//       newCourse.setAttribute("list", "datalistOptions");
+//       newCourse.setAttribute("id", "coursePrompt");
+//       newCourse.setAttribute("placeholder", "Type to search...");
 
 
-      // for(var i = 0; i < classes.length; i++) {
-      //   var course = document.createElement("option");
-      //   course.value = classes[i];
-      //   course.text = classes[i]; 
-      //   newCourse.appendChild(course);
-      // }
+//       for(var i = 0; i < classes.length; i++) {
+//         var course = document.createElement("option");
+//         course.value = classes[i];
+//         course.text = classes[i]; 
+//         newCourse.appendChild(course);
+//       }
 
-      document.getElementById("newCourseClick").appendChild(newCourse);
-      document.getElementById("newPre").appendChild(newPre);
+//       // new pre-req box
+//       // Create select element 
+//       var newPre = document.createElement("input");
 
-    }
+//       // Set attributes
+//       newPre.setAttribute("class", "form-control");
+//       newPre.setAttribute("list", "preOptions");
+//       newPre.setAttribute("id", "preReqPrompt");
+//       newPre.setAttribute("placeholder", "Enter prereqs...");
 
-    // ADDING A NEW CLASS
-    document.getElementById("addSelect")
-            .addEventListener("click", addSelectionBox);
 
-  });
+//       // for(var i = 0; i < classes.length; i++) {
+//       //   var course = document.createElement("option");
+//       //   course.value = classes[i];
+//       //   course.text = classes[i]; 
+//       //   newCourse.appendChild(course);
+//       // }
+
+//       document.getElementById("newCourseClick").appendChild(newCourse);
+//       document.getElementById("newPre").appendChild(newPre);
+
+//     }
+
+//     // ADDING A NEW CLASS
+//     document.getElementById("addSelect")
+//             .addEventListener("click", addSelectionBox);
+
+//   });
   
 
   
-// -----------------------------------------------------------------------------
+// // -----------------------------------------------------------------------------
 
 
-// -----------------------------------------------------------------------------
-// CREATING TABLE
-function createTable(optimize_output, summer) {
-  // Access the HTML elements for the table and its body
-  var table_select = document.getElementById("schedule");
-  var body_select = document.getElementById("tableBody");
+// // -----------------------------------------------------------------------------
+// // CREATING TABLE
+// function createTable(optimize_output, summer) {
+//   // Access the HTML elements for the table and its body
+//   var table_select = document.getElementById("schedule");
+//   var body_select = document.getElementById("tableBody");
 
-  // Clear all existing rows in the table to prepare for new data
-  while (table_select.rows.length > 0) {
-      table_select.deleteRow(0);
-  }
+//   // Clear all existing rows in the table to prepare for new data
+//   while (table_select.rows.length > 0) {
+//       table_select.deleteRow(0);
+//   }
 
-  // List of academic years for labeling rows
-  let year_list = ['2024-2025', '2025-2026', '2026-2027', '2027-2028', '2028-2029', '2029-2030', '2030-2031', '2031-2032'];
+//   // List of academic years for labeling rows
+//   let year_list = ['2024-2025', '2025-2026', '2026-2027', '2027-2028', '2028-2029', '2029-2030', '2030-2031', '2031-2032'];
 
-  // Create table header with conditional inclusion of the Summer column
-  var header = table_select.createTHead();
-  var head_row = header.insertRow(0);
-  var cellCount = summer === 1 ? 5 : 4; // Number of cells changes based on summer term inclusion
+//   // Create table header with conditional inclusion of the Summer column
+//   var header = table_select.createTHead();
+//   var head_row = header.insertRow(0);
+//   var cellCount = summer === 1 ? 5 : 4; // Number of cells changes based on summer term inclusion
 
-  // Adding column headers to the table
-  head_row.insertCell(0).innerHTML = "Year";
-  head_row.insertCell(1).innerHTML = "Fall";
-  head_row.insertCell(2).innerHTML = "Spring";
-  if (summer === 1) {
-      head_row.insertCell(3).innerHTML = "Summer"; // Add summer column if summer courses are included
-  }
-  head_row.insertCell(cellCount - 1).innerHTML = "End of Year GPA"; // GPA column
-
-
-  // Initialize variables for GPA calculation
-  let totalGPA = 0;
-  let numCourses = 0;
-  let currentYearIndex = 0;
-  let semesterIndex = 0; // 0: Fall, 1: Spring, 2: Summer (if applicable)
-
-  optimize_output[2].forEach((semesterCourses) => {
-    // Determine if it's a new academic year
-    if (semesterIndex === 0) {
-      // Create a new row for the new academic year
-      var row = body_select.insertRow(-1);
-      row.insertCell(0).innerHTML = year_list[currentYearIndex];
-      row.insertCell(1); // Fall
-      row.insertCell(2); // Spring
-      if (summer === 1) {
-          row.insertCell(3); // Summer
-      }
-      row.insertCell(summer === 1 ? 4 : 3); // End of Year GPA
-    } else {
-      // Access the existing row for the current academic year
-      row = body_select.rows[currentYearIndex];
-      }
-
-      // Fill in course details and accumulate GPA
-      semesterCourses.forEach(course => {
-        let courseInfo = `${course[0]}: ${course[1].toFixed(2)}`;
-        row.cells[semesterIndex + 1].innerHTML += courseInfo + "<br>";
-        totalGPA += course[1];
-        numCourses++;
-      });
-
-      // Move to the next semester
-      semesterIndex++;
-      if ((semesterIndex === 2 && summer === 0) || (semesterIndex === 3 && summer === 1)) {
-        // Calculate average GPA and display
-        let averageGPA = numCourses > 0 ? (totalGPA / numCourses).toFixed(2) : "N/A";
-        row.cells[row.cells.length - 1].innerHTML = averageGPA;
-
-        // Reset for the next year
-        totalGPA = 0;
-        numCourses = 0;
-        semesterIndex = 0;
-        currentYearIndex++;
-      }
-  });
-}
+//   // Adding column headers to the table
+//   head_row.insertCell(0).innerHTML = "Year";
+//   head_row.insertCell(1).innerHTML = "Fall";
+//   head_row.insertCell(2).innerHTML = "Spring";
+//   if (summer === 1) {
+//       head_row.insertCell(3).innerHTML = "Summer"; // Add summer column if summer courses are included
+//   }
+//   head_row.insertCell(cellCount - 1).innerHTML = "End of Year GPA"; // GPA column
 
 
-// ---------------------------------------------------------------------------------------------------
-// Function to draw interactive line chart
-function drawInteractiveLineChart(gpas, semesters,prereqs, professors) {
-  console.log("drawInteractiveLineChart called with data:", gpas);
+//   // Initialize variables for GPA calculation
+//   let totalGPA = 0;
+//   let numCourses = 0;
+//   let currentYearIndex = 0;
+//   let semesterIndex = 0; // 0: Fall, 1: Spring, 2: Summer (if applicable)
 
-  // Transform data
-  let lowestGpa = 4;
-  let highestGpa = 0;
-  let courseData = [];
-  Object.keys(gpas).forEach(course => {
-    let maxGpa = d3.max(gpas[course][0]);
-    let minGpa = d3.min(gpas[course][0]);
-    gpas[course][0].forEach((gpa, semesterIndex) => {
-      // let semesterIndex = index + 1;  // Adjust for zero-based indexing
-      let professorName = professors[course] && professors[course][semesterIndex] ? professors[course][semesterIndex]  : "Unknown";
-      lowestGpa = Math.min(lowestGpa, gpa);
-      highestGpa = Math.max(highestGpa, gpa);
-      courseData.push({ 
-        course, 
-        semester: semesterIndex + 1, 
-        gpa, 
-        professor : professorName,
-        isMax: gpa === maxGpa,
-        isMin: gpa === minGpa
-      });
-    });
-  });
+//   optimize_output[2].forEach((semesterCourses) => {
+//     // Determine if it's a new academic year
+//     if (semesterIndex === 0) {
+//       // Create a new row for the new academic year
+//       var row = body_select.insertRow(-1);
+//       row.insertCell(0).innerHTML = year_list[currentYearIndex];
+//       row.insertCell(1); // Fall
+//       row.insertCell(2); // Spring
+//       if (summer === 1) {
+//           row.insertCell(3); // Summer
+//       }
+//       row.insertCell(summer === 1 ? 4 : 3); // End of Year GPA
+//     } else {
+//       // Access the existing row for the current academic year
+//       row = body_select.rows[currentYearIndex];
+//       }
 
+//       // Fill in course details and accumulate GPA
+//       semesterCourses.forEach(course => {
+//         let courseInfo = `${course[0]}: ${course[1].toFixed(2)}`;
+//         row.cells[semesterIndex + 1].innerHTML += courseInfo + "<br>";
+//         totalGPA += course[1];
+//         numCourses++;
+//       });
 
-  // Group data by course
-  let dataNest = d3.nest()
-    .key(function(d) { return d.course; })
-    .entries(courseData);
+//       // Move to the next semester
+//       semesterIndex++;
+//       if ((semesterIndex === 2 && summer === 0) || (semesterIndex === 3 && summer === 1)) {
+//         // Calculate average GPA and display
+//         let averageGPA = numCourses > 0 ? (totalGPA / numCourses).toFixed(2) : "N/A";
+//         row.cells[row.cells.length - 1].innerHTML = averageGPA;
 
-  // Dimensions and margins
-  const margin = { top: 30, right: 50, bottom: 60, left: 50 };
-  const width = 1100 - margin.left - margin.right;
-  const height = 600 - margin.top - margin.bottom;
-
-  // Remove existing SVG
-  d3.select("#interactiveLineChart").selectAll("*").remove();
-
-  // SVG container
-  const svg = d3.select("#interactiveLineChart")
-    .append("svg")
-    .attr("width", width + margin.left + margin.right)
-    .attr("height", height + margin.top + margin.bottom)
-    .append("g")
-    .attr("transform", `translate(${margin.left},${margin.top})`);
-
-  // Tooltip
-  var tip = d3.tip()
-    .attr('class', 'd3-tip')
-    .style("visibility", "visible")
-    .style("background", "grey")
-    .offset([-10, 0])
-    .html(function(d) {
-      // tooltip contets
-      // let maxGpa = d3.max(gpas[d.course][0]);
-      // let minGpa = d3.min(gpas[d.course][0]);
-      // let gpa = gpas[d.course][0][semesters[d.course] - 1];
-      let maxGpa = d3.max(gpas[d.course][0]).toFixed(2);
-      let minGpa = d3.min(gpas[d.course][0]).toFixed(2);
-      let gpa = gpas[d.course][0][semesters[d.course] - 1].toFixed(2);
-      // let gpa = gpa.toFixed(2);
-      let prereqText = prereqs[d.course].length > 0 ? prereqs[d.course].join(", ") : "None";
-      let professor = d.professor;
-      return `Max GPA: ${maxGpa}<br>Min GPA: ${minGpa} <br> Model GPA: ${gpa} <br>Prereqs: ${prereqText} <br>Professor: ${professor}`;
-    });
-
-  svg.call(tip);
-
-  // get max semester val
-  const firstKey = Object.keys(gpas)[0];
-  const maxSemester = gpas[firstKey][0].length;
-
-  lowestGpa = Math.floor(lowestGpa * 10) / 10;
-  highestGpa = Math.ceil(highestGpa * 10) / 10;
-  highestGpa = Math.max(highestGpa, 4);
+//         // Reset for the next year
+//         totalGPA = 0;
+//         numCourses = 0;
+//         semesterIndex = 0;
+//         currentYearIndex++;
+//       }
+//   });
+// }
 
 
-  // Scales
-  const xScale = d3.scaleLinear().domain([1, maxSemester]).range([0, width]);
-  const yScale = d3.scaleLinear().domain([lowestGpa, highestGpa]).range([height, 0]);
+// // ---------------------------------------------------------------------------------------------------
+// // Function to draw interactive line chart
+// function drawInteractiveLineChart(gpas, semesters,prereqs, professors) {
+//   console.log("drawInteractiveLineChart called with data:", gpas);
 
-  // Colors
-  const color = d3.scaleOrdinal(d3.schemeCategory10);
-
-  // Add X and Y axis
- // Add X axis
-  svg.append("g")
-    .attr("transform", `translate(0,${height})`)
-    .call(d3.axisBottom(xScale)
-      .tickFormat(d3.format('d')) // Format as integer
-      .ticks(maxSemester) // Set the number of ticks to the maximum semester value
-      .tickValues(d3.range(1, maxSemester + 1)) // Explicitly set tick values
-    );
-
-
-
-  svg.append("g").call(d3.axisLeft(yScale));
-
-  // Line generator
-  const line = d3.line()
-    .x(d => xScale(d.semester))
-    .y(d => yScale(d.gpa));
-
-  // Draw the lines and squares for max GPA
-  dataNest.forEach(function(d, i) {
-    const group = svg.append("g").attr("class", "course-group");
-
-    group.append("path")
-      .data([d.values])
-      .attr("class", "line")
-      .style("stroke", function() { return color(d.key); })
-      .style("stroke-width", "2px")
-      .attr("fill", "none")
-      .attr("d", line);
-
-    // Draw triang for max GPA
-    group.selectAll(".max-gpa-triangle")
-    .data(d.values.filter(v => v.isMax))
-    .enter().append("path")
-    .attr("d", d3.symbol().type(d3.symbolTriangle).size(150))
-    .attr("transform", function(d) { 
-        return `translate(${xScale(d.semester)}, ${yScale(d.gpa)})`; 
-    })
-    .style("fill", function() { return color(d.key); })
-    .on("mouseover", tip.show)
-    .on("mouseout", tip.hide);
+//   // Transform data
+//   let lowestGpa = 4;
+//   let highestGpa = 0;
+//   let courseData = [];
+//   Object.keys(gpas).forEach(course => {
+//     let maxGpa = d3.max(gpas[course][0]);
+//     let minGpa = d3.min(gpas[course][0]);
+//     gpas[course][0].forEach((gpa, semesterIndex) => {
+//       // let semesterIndex = index + 1;  // Adjust for zero-based indexing
+//       let professorName = professors[course] && professors[course][semesterIndex] ? professors[course][semesterIndex]  : "Unknown";
+//       lowestGpa = Math.min(lowestGpa, gpa);
+//       highestGpa = Math.max(highestGpa, gpa);
+//       courseData.push({ 
+//         course, 
+//         semester: semesterIndex + 1, 
+//         gpa, 
+//         professor : professorName,
+//         isMax: gpa === maxGpa,
+//         isMin: gpa === minGpa
+//       });
+//     });
+//   });
 
 
-    // Draw circles for other points
-    group.selectAll("circle")
-      .data(d.values.filter(v => !v.isMax))
-      .enter().append("circle")
-      .attr("r", 5)
-      .attr("cx", function(d) { return xScale(d.semester); })
-      .attr("cy", function(d) { return yScale(d.gpa); })
-      .style("fill", function() { return color(d.key); })
-      .on("mouseover", tip.show)
-      .on("mouseout", tip.hide); 
+//   // Group data by course
+//   let dataNest = d3.nest()
+//     .key(function(d) { return d.course; })
+//     .entries(courseData);
+
+//   // Dimensions and margins
+//   const margin = { top: 30, right: 50, bottom: 60, left: 50 };
+//   const width = 1100 - margin.left - margin.right;
+//   const height = 600 - margin.top - margin.bottom;
+
+//   // Remove existing SVG
+//   d3.select("#interactiveLineChart").selectAll("*").remove();
+
+//   // SVG container
+//   const svg = d3.select("#interactiveLineChart")
+//     .append("svg")
+//     .attr("width", width + margin.left + margin.right)
+//     .attr("height", height + margin.top + margin.bottom)
+//     .append("g")
+//     .attr("transform", `translate(${margin.left},${margin.top})`);
+
+//   // Tooltip
+//   var tip = d3.tip()
+//     .attr('class', 'd3-tip')
+//     .style("visibility", "visible")
+//     .style("background", "grey")
+//     .offset([-10, 0])
+//     .html(function(d) {
+//       // tooltip contets
+//       // let maxGpa = d3.max(gpas[d.course][0]);
+//       // let minGpa = d3.min(gpas[d.course][0]);
+//       // let gpa = gpas[d.course][0][semesters[d.course] - 1];
+//       let maxGpa = d3.max(gpas[d.course][0]).toFixed(2);
+//       let minGpa = d3.min(gpas[d.course][0]).toFixed(2);
+//       let gpa = gpas[d.course][0][semesters[d.course] - 1].toFixed(2);
+//       // let gpa = gpa.toFixed(2);
+//       let prereqText = prereqs[d.course].length > 0 ? prereqs[d.course].join(", ") : "None";
+//       let professor = d.professor;
+//       return `Max GPA: ${maxGpa}<br>Min GPA: ${minGpa} <br> Model GPA: ${gpa} <br>Prereqs: ${prereqText} <br>Professor: ${professor}`;
+//     });
+
+//   svg.call(tip);
+
+//   // get max semester val
+//   const firstKey = Object.keys(gpas)[0];
+//   const maxSemester = gpas[firstKey][0].length;
+
+//   lowestGpa = Math.floor(lowestGpa * 10) / 10;
+//   highestGpa = Math.ceil(highestGpa * 10) / 10;
+//   highestGpa = Math.max(highestGpa, 4);
 
 
-  });
+//   // Scales
+//   const xScale = d3.scaleLinear().domain([1, maxSemester]).range([0, width]);
+//   const yScale = d3.scaleLinear().domain([lowestGpa, highestGpa]).range([height, 0]);
 
+//   // Colors
+//   const color = d3.scaleOrdinal(d3.schemeCategory10);
 
-  Object.keys(semesters).forEach(course => {
-    let semester = semesters[course];
-    svg.selectAll(".dot")
-      .data(courseData.filter(d => d.course === course && d.semester === semester))
-      .enter().append("path")
-      .attr("d", d3.symbol().type(d3.symbolCross).size(250)) // Use symbolCross for "x"
-      .attr("transform", d => `translate(${xScale(d.semester)}, ${yScale(d.gpa)})`)
-      .attr("fill", color(course))
-      .on("mouseover", tip.show)
-      .on("mouseout", tip.hide);
-  });
-
-
-  // Interaction: Highlight the course's line and dim others
-  svg.selectAll(".course-group")
-    .on("mouseover", function(event, d) {
-      // Dim all lines
-      svg.selectAll(".line").style("opacity", 0.1);
-      // Highlight hovered line
-      d3.select(this).select(".line").style("opacity", 1);
-    })
-    .on("mouseout", function(event, d) {
-      // Reset opacity
-      svg.selectAll(".line").style("opacity", 1);
-    });
+//   // Add X and Y axis
+//  // Add X axis
+//   svg.append("g")
+//     .attr("transform", `translate(0,${height})`)
+//     .call(d3.axisBottom(xScale)
+//       .tickFormat(d3.format('d')) // Format as integer
+//       .ticks(maxSemester) // Set the number of ticks to the maximum semester value
+//       .tickValues(d3.range(1, maxSemester + 1)) // Explicitly set tick values
+//     );
 
 
 
+//   svg.append("g").call(d3.axisLeft(yScale));
 
-  // Add legend
+//   // Line generator
+//   const line = d3.line()
+//     .x(d => xScale(d.semester))
+//     .y(d => yScale(d.gpa));
 
-  const legendEntryWidth = 100; // Width of each legend entry
-  const legendEntryHeight = 18; // Height of each legend entry
-  const legendColumns = 2; // Number of columns in the legend
+//   // Draw the lines and squares for max GPA
+//   dataNest.forEach(function(d, i) {
+//     const group = svg.append("g").attr("class", "course-group");
+
+//     group.append("path")
+//       .data([d.values])
+//       .attr("class", "line")
+//       .style("stroke", function() { return color(d.key); })
+//       .style("stroke-width", "2px")
+//       .attr("fill", "none")
+//       .attr("d", line);
+
+//     // Draw triang for max GPA
+//     group.selectAll(".max-gpa-triangle")
+//     .data(d.values.filter(v => v.isMax))
+//     .enter().append("path")
+//     .attr("d", d3.symbol().type(d3.symbolTriangle).size(150))
+//     .attr("transform", function(d) { 
+//         return `translate(${xScale(d.semester)}, ${yScale(d.gpa)})`; 
+//     })
+//     .style("fill", function() { return color(d.key); })
+//     .on("mouseover", tip.show)
+//     .on("mouseout", tip.hide);
 
 
-  const legend = svg.selectAll(".legend")
-  .data(dataNest)
-  .enter().append("g")
-  .attr("class", "legend")
-  .attr("transform", function(d, i) {
-    // Calculate row and column position
-    const col = i % legendColumns;
-    const row = Math.floor(i / legendColumns);
-    const x = width*1.02 - (legendColumns - col) * legendEntryWidth;
-    const y = row * legendEntryHeight - height*0.05;
-    return "translate(" + x + "," + y + ")";
-  });
+//     // Draw circles for other points
+//     group.selectAll("circle")
+//       .data(d.values.filter(v => !v.isMax))
+//       .enter().append("circle")
+//       .attr("r", 5)
+//       .attr("cx", function(d) { return xScale(d.semester); })
+//       .attr("cy", function(d) { return yScale(d.gpa); })
+//       .style("fill", function() { return color(d.key); })
+//       .on("mouseover", tip.show)
+//       .on("mouseout", tip.hide); 
 
-      legend.append("rect")
-  .attr("width", 10)
-  .attr("height", 10)
-  .style("fill", function(d) { return color(d.key); });
 
-legend.append("text")
-  .attr("x", 15)
-  .attr("y", 10)
-  .text(function(d) { return d.key; });
+//   });
 
-  // Add X and Y axis labels
-  svg.append("text")
-    .attr("transform", "translate(" + (width/2) + " ," + (height + margin.bottom - 20) + ")")
-    .style("text-anchor", "middle")
-    .text("Semester#");
 
-  svg.append("text")
-    .attr("transform", "rotate(-90)")
-    .attr("y", 0 - margin.left)
-    .attr("x",0 - (height / 2))
-    .attr("dy", "1em")
-    .style("text-anchor", "middle")
-    .text("GPA");  
-  console.log("Graph should be drawn now");
-};
+//   Object.keys(semesters).forEach(course => {
+//     let semester = semesters[course];
+//     svg.selectAll(".dot")
+//       .data(courseData.filter(d => d.course === course && d.semester === semester))
+//       .enter().append("path")
+//       .attr("d", d3.symbol().type(d3.symbolCross).size(250)) // Use symbolCross for "x"
+//       .attr("transform", d => `translate(${xScale(d.semester)}, ${yScale(d.gpa)})`)
+//       .attr("fill", color(course))
+//       .on("mouseover", tip.show)
+//       .on("mouseout", tip.hide);
+//   });
 
-// ------------------------------------------------------------------------------------------------
 
-// function error_message() {
+//   // Interaction: Highlight the course's line and dim others
+//   svg.selectAll(".course-group")
+//     .on("mouseover", function(event, d) {
+//       // Dim all lines
+//       svg.selectAll(".line").style("opacity", 0.1);
+//       // Highlight hovered line
+//       d3.select(this).select(".line").style("opacity", 1);
+//     })
+//     .on("mouseout", function(event, d) {
+//       // Reset opacity
+//       svg.selectAll(".line").style("opacity", 1);
+//     });
 
+
+
+
+//   // Add legend
+
+//   const legendEntryWidth = 100; // Width of each legend entry
+//   const legendEntryHeight = 18; // Height of each legend entry
+//   const legendColumns = 2; // Number of columns in the legend
+
+
+//   const legend = svg.selectAll(".legend")
+//   .data(dataNest)
+//   .enter().append("g")
+//   .attr("class", "legend")
+//   .attr("transform", function(d, i) {
+//     // Calculate row and column position
+//     const col = i % legendColumns;
+//     const row = Math.floor(i / legendColumns);
+//     const x = width*1.02 - (legendColumns - col) * legendEntryWidth;
+//     const y = row * legendEntryHeight - height*0.05;
+//     return "translate(" + x + "," + y + ")";
+//   });
+
+//       legend.append("rect")
+//   .attr("width", 10)
+//   .attr("height", 10)
+//   .style("fill", function(d) { return color(d.key); });
+
+// legend.append("text")
+//   .attr("x", 15)
+//   .attr("y", 10)
+//   .text(function(d) { return d.key; });
+
+//   // Add X and Y axis labels
+//   svg.append("text")
+//     .attr("transform", "translate(" + (width/2) + " ," + (height + margin.bottom - 20) + ")")
+//     .style("text-anchor", "middle")
+//     .text("Semester#");
+
+//   svg.append("text")
+//     .attr("transform", "rotate(-90)")
+//     .attr("y", 0 - margin.left)
+//     .attr("x",0 - (height / 2))
+//     .attr("dy", "1em")
+//     .style("text-anchor", "middle")
+//     .text("GPA");  
+//   console.log("Graph should be drawn now");
 // };
 
+// // ------------------------------------------------------------------------------------------------
+
+// // function error_message() {
+
+// // };
 
 
-// ------------------------------------------------------------------------------------------------
+
+// // ------------------------------------------------------------------------------------------------
 
 
-function optimize_from_html(course_list, pre_reqs_list) {
-  // console.log(course_list)
-  // console.log("----------------")
+// function optimize_from_html(course_list, pre_reqs_list) {
+//   // console.log(course_list)
+//   // console.log("----------------")
     
-  var minHours = document.getElementById('minPrompt').value;
-  var maxHours = document.getElementById('maxPrompt').value;
-  var summer_bool = document.getElementById('summerPrompt').value;
+//   var minHours = document.getElementById('minPrompt').value;
+//   var maxHours = document.getElementById('maxPrompt').value;
+//   var summer_bool = document.getElementById('summerPrompt').value;
 
-  console.log(summer_bool)
-  console.log(minHours)
-  console.log(maxHours)
+//   console.log(summer_bool)
+//   console.log(minHours)
+//   console.log(maxHours)
 
-  // convert to 0 or 1
-  summer_final = 0;
-  if (summer_bool=="yes") {
-    summer_final = 1;
-  }
+//   // convert to 0 or 1
+//   summer_final = 0;
+//   if (summer_bool=="yes") {
+//     summer_final = 1;
+//   }
 
-  // Send the selected number to the server
-  fetch('/run_optimization', {
-    method: 'POST',
-    headers: {
-        'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-      'summer' : summer_final, 
-      'minHours' : minHours, 
-      'maxHours' : maxHours,
-      'course_list': course_list,
-      'prereqs': pre_reqs_list
-    })
-  })
-  .then(response => response.json())
-  .then(data => {
-    // console.log("testing")
-    // Update the result on the webpage
-    // console.log(data.opt_log)
-    // console.log("GPA DATA:", data.gpas)
-    // console.log("Semester DATA:",data.semesters)
-    // console.log("Prereqs DATA:",data.prereqs)
-    // console.log("Profs DATA:",data.professors)
+//   // Send the selected number to the server
+//   fetch('/run_optimization', {
+//     method: 'POST',
+//     headers: {
+//         'Content-Type': 'application/json'
+//     },
+//     body: JSON.stringify({
+//       'summer' : summer_final, 
+//       'minHours' : minHours, 
+//       'maxHours' : maxHours,
+//       'course_list': course_list,
+//       'prereqs': pre_reqs_list
+//     })
+//   })
+//   .then(response => response.json())
+//   .then(data => {
+//     // console.log("testing")
+//     // Update the result on the webpage
+//     // console.log(data.opt_log)
+//     // console.log("GPA DATA:", data.gpas)
+//     // console.log("Semester DATA:",data.semesters)
+//     // console.log("Prereqs DATA:",data.prereqs)
+//     // console.log("Profs DATA:",data.professors)
 
 
-    if (data.opt_log=="ERROR") {
-      alert("Infeasible. Please check your inputs.");
-      // error_message()
+//     if (data.opt_log=="ERROR") {
+//       alert("Infeasible. Please check your inputs.");
+//       // error_message()
 
-    } else {
-      console.log("here2")
-      createTable(data.opt_log, summer_final);
-      drawInteractiveLineChart(data.gpas, data.semesters, data.prereqs, data.professors);
-    }
+//     } else {
+//       console.log("here2")
+//       createTable(data.opt_log, summer_final);
+//       drawInteractiveLineChart(data.gpas, data.semesters, data.prereqs, data.professors);
+//     }
 
     
-    // drawInteractiveLineChart(dummy_gpas, dummy_semesters, dummy_prereqs, dummy_professors)
+//     // drawInteractiveLineChart(dummy_gpas, dummy_semesters, dummy_prereqs, dummy_professors)
     
-    // document.getElementById('optimization_results').innerText = 'RESULTS:\n' + data.opt_log;
-  })
-  .catch(error => console.error('Error:', error));
-}
+//     // document.getElementById('optimization_results').innerText = 'RESULTS:\n' + data.opt_log;
+//   })
+//   .catch(error => console.error('Error:', error));
+// }
 
 
-// get the courses from the selection into the schedule
-document.getElementById("optimize").addEventListener("click", function() {
+// // get the courses from the selection into the schedule
+// document.getElementById("optimize").addEventListener("click", function() {
     
-  console.log("------")
-  console.log(document.getElementById("maxPrompt").value)
+//   console.log("------")
+//   console.log(document.getElementById("maxPrompt").value)
 
-  // code for interactive line chart
-  document.getElementById("Interactive_Graph").innerText = "Interactive Graph should now be displayed here.";
-  console.log("Drawing graph with dummy data");
+//   // code for interactive line chart
+//   document.getElementById("Interactive_Graph").innerText = "Interactive Graph should now be displayed here.";
+//   console.log("Drawing graph with dummy data");
 
-  // drawInteractiveLineChart(dummy_gpas, dummy_semesters, dummy_prereqs, dummy_professors);
+//   // drawInteractiveLineChart(dummy_gpas, dummy_semesters, dummy_prereqs, dummy_professors);
 
-  // working on getting info from course selection
-  course_div = document.getElementById("courseSelection")
-  options = course_div.getElementsByTagName("input")
+//   // working on getting info from course selection
+//   course_div = document.getElementById("courseSelection")
+//   options = course_div.getElementsByTagName("input")
 
-  courses_list = []
-  for (let i=0; i<options.length; i++) {
-    courses_list.push(options[i].value)
-  }
-  console.log(courses_list)
+//   courses_list = []
+//   for (let i=0; i<options.length; i++) {
+//     courses_list.push(options[i].value)
+//   }
+//   console.log(courses_list)
 
-  // get prereqs
-  pre_div = document.getElementById("preReq")
-  pre_options = pre_div.getElementsByTagName("input")
+//   // get prereqs
+//   pre_div = document.getElementById("preReq")
+//   pre_options = pre_div.getElementsByTagName("input")
 
-  pre_reqs_list = []
-  for (let i=0; i<pre_options.length; i++) {
-    pre_reqs_list.push([pre_options[i].value])
-  }
-  console.log(pre_reqs_list)
+//   pre_reqs_list = []
+//   for (let i=0; i<pre_options.length; i++) {
+//     pre_reqs_list.push([pre_options[i].value])
+//   }
+//   console.log(pre_reqs_list)
 
-  optimize_from_html(courses_list, pre_reqs_list)
-});
-
-
-// Event listener for 'Clear Classes' button
-document.getElementById("clearClasses").addEventListener("click", function() {
-  // Get all input elements within #courseSelection
-  var inputs = document.getElementById("courseSelection").getElementsByTagName("input");
-
-  // Iterate over each input and clear its value
-  for (var i = 0; i < inputs.length; i++) {
-    inputs[i].value = "";
-  }
-
-  // clear pre-requisite values
-  var prereqs = document.getElementById("preReq").getElementsByTagName("input");
-  // var options = document.getElementById("preOptions").getElementsByTagName("option");
-  // console.log(options)
-  for (let i=0; i<prereqs.length; i++) {
-    prereqs[i].value = "";
-    prereqs[i].removeAttribute("list")
-  }
-
-  // // clear options
-  var options = document.getElementById("preOptions");
-  // console.log(options.lastChild)
-  while (options.firstChild) {
-    options.removeChild(options.lastChild);
-  }
-
-});
-
-document.getElementById("pre_reqs").addEventListener("click", function() {
-  course_div = document.getElementById("courseSelection")
-  options = course_div.getElementsByTagName("input")
-
-  courses_list = []
-  for (let i=0; i<options.length; i++) {
-    courses_list.push(options[i].value)
-  }
-
-  var courseBox = document.getElementById("preOptions")
-  console.log(courseBox)
-
-  // Loops through courses to create dropdown
-  for(var i = 0; i < courses_list.length; i++) {
-    var course1 = document.createElement("option");
-    course1.value = courses_list[i];
-    course1.text = courses_list[i];
-    courseBox.appendChild(course1);
-  };
-
-  help_pre = document.getElementById("preReq").getElementsByTagName("input");
-  for (let i=0; i<help_pre.length; i++) {
-    help_pre[i].setAttribute("list", "preOptions")
-  }
+//   optimize_from_html(courses_list, pre_reqs_list)
+// });
 
 
-})
+// // Event listener for 'Clear Classes' button
+// document.getElementById("clearClasses").addEventListener("click", function() {
+//   // Get all input elements within #courseSelection
+//   var inputs = document.getElementById("courseSelection").getElementsByTagName("input");
+
+//   // Iterate over each input and clear its value
+//   for (var i = 0; i < inputs.length; i++) {
+//     inputs[i].value = "";
+//   }
+
+//   // clear pre-requisite values
+//   var prereqs = document.getElementById("preReq").getElementsByTagName("input");
+//   // var options = document.getElementById("preOptions").getElementsByTagName("option");
+//   // console.log(options)
+//   for (let i=0; i<prereqs.length; i++) {
+//     prereqs[i].value = "";
+//     prereqs[i].removeAttribute("list")
+//   }
+
+//   // // clear options
+//   var options = document.getElementById("preOptions");
+//   // console.log(options.lastChild)
+//   while (options.firstChild) {
+//     options.removeChild(options.lastChild);
+//   }
+
+// });
+
+// document.getElementById("pre_reqs").addEventListener("click", function() {
+//   course_div = document.getElementById("courseSelection")
+//   options = course_div.getElementsByTagName("input")
+
+//   courses_list = []
+//   for (let i=0; i<options.length; i++) {
+//     courses_list.push(options[i].value)
+//   }
+
+//   var courseBox = document.getElementById("preOptions")
+//   console.log(courseBox)
+
+//   // Loops through courses to create dropdown
+//   for(var i = 0; i < courses_list.length; i++) {
+//     var course1 = document.createElement("option");
+//     course1.value = courses_list[i];
+//     course1.text = courses_list[i];
+//     courseBox.appendChild(course1);
+//   };
+
+//   help_pre = document.getElementById("preReq").getElementsByTagName("input");
+//   for (let i=0; i<help_pre.length; i++) {
+//     help_pre[i].setAttribute("list", "preOptions")
+//   }
+
+
+// })
   
   
 </script>
