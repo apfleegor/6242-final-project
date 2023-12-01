@@ -50,9 +50,9 @@
     max-width: 30%;
 }
 
-.card-deck .cw-70 {
-    flex: 1 0 70%;
-    max-width: 90%;
+.card-deck .cw-60 {
+    flex: 1 0 60%;
+    max-width: 60%;
 }
 
 .d-block {
