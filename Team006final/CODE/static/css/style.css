@@ -1,0 +1,90 @@
+.jumbotron {
+    /* background-image: url("https://t4.ftcdn.net/jpg/03/16/36/59/360_F_316365913_WKVKZW7gzsqqhkx4PgGyu0rArj5GykHK.jpg"); */
+    background-color: #a9995e;
+    background-size: cover;
+    height: 100%;
+    color: white;
+    text-shadow: 2px 2px 20px black;
+    font-weight: bolder;
+    padding-top: 10px !important;
+    padding-bottom: 10px !important;
+}
+
+.table {
+    border-collapse: collapse;
+    width: 100%;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+}
+
+.table thead tr {
+    /* background-color: #004085; A dark shade for contrast */
+    background-color: #003057;
+    color: white;
+    text-align: left;
+}
+
+.table tbody td {
+    padding: 12px 15px;
+    text-align: left;
+}
+
+.table tbody tr:nth-child(odd) {
+    background-color: #f2f2f2; /* Light shade for every other row */
+}
+
+.table tbody tr:hover {
+    background-color: #ddd; /* A light color on hover */
+}
+
+.card {
+    margin: 10px;
+}
+
+/* .card-deck{
+    margin-left: 0px;
+    margin-right: 0px;
+} */
+
+.card-deck .cw-30 {
+    flex: 1 0 30%;
+    max-width: 30%;
+}
+
+.card-deck .cw-60 {
+    flex: 1 0 60%;
+    max-width: 60%;
+}
+
+.d-block {
+    color: black
+}
+
+.padding-r{
+    padding-right:0;
+}
+
+.padding-l{
+    padding-left:0;
+}
+
+#addSelect {
+    background-color: #003057;
+}
+
+#clearClasses{
+    background-color: #a9995e
+}
+
+/* maybe change color? */
+#tooltip {
+    position: absolute;
+    background: rgba(0, 0, 0, 0.8);
+    color: #fff;
+    border-radius: 4px;
+    padding: 6px;
+}
+
+#margins{
+    margin-right: -1.25rem;
+    margin-left: -1.25rem;
+}
