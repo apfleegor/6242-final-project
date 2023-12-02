@@ -78,9 +78,10 @@ function createTable(optimize_output, summer) {
     // Extract the overall GPA from the output and display in the last row
     let overallGPA = optimize_output[0];
     var overallGPARow = body_select.insertRow(-1);
-    overallGPARow.insertCell(0).innerHTML = "Predicted Cumulative GPA";
-    var gpaCell = overallGPARow.insertCell(1);
-    gpaCell.colSpan = cellCount - 1;
-    gpaCell.innerHTML = `<strong>${overallGPA.toFixed(2)}</strong>`;
-    gpaCell.style.textAlign = "center";
+
+    // Combine the label and GPA value in a single cell
+    var gpaLabelAndValueCell = overallGPARow.insertCell(0);
+    gpaLabelAndValueCell.innerHTML = `<strong>Predicted Cumulative GPA: ${overallGPA.toFixed(2)}</strong>`;
+    gpaLabelAndValueCell.colSpan = cellCount; // Span across all columns
+    gpaLabelAndValueCell.style.textAlign = "center";
 }
