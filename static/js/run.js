@@ -143,7 +143,7 @@ document.getElementById("optimize").addEventListener("click", function() {
     document.getElementById("Interactive_Graph").innerText = " \
     The interactive graph below plots GPA against semester number. \n\n \
     Each inputted class's projected GPAs are shown for every semester, with each '▲' designating \
-    the semester where GPA will optimal, and each '➕' designating which semester \
+    the semester where GPA is projected to be highest, and each '➕' designating which semester \
     is recommended, based on maximizing total GPA.\n\n Hover over each course to \
     compare Optidule's choice to other semesters!";
     // console.log("Drawing graph with dummy data");
