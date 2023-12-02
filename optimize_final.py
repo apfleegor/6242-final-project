@@ -13,7 +13,7 @@ import math
 # FEYZI NOTE 11/30/2023: I made it return the a df so that I can display it in the graph
 
 def run( list_of_courses, min_hours, max_hours, summer=0, pr=None, df=pd.read_csv('data/credit_hours.csv')):
-    if max_hours<min_hours or max_hours<max(df['Cred_hours']):
+    if max_hours<min_hours:
         return "ERROR"
     print(list_of_courses)
     pd.options.mode.chained_assignment = None
@@ -27,7 +27,7 @@ def run( list_of_courses, min_hours, max_hours, summer=0, pr=None, df=pd.read_cs
     #max_hours = int(input("What are maximum hours you want to take?")) #used 18 for testing
     min_sem=math.ceil(sum(df['Cred_hours'])/max_hours)
     max_sem=math.ceil(sum(df['Cred_hours'])/min_hours)
-    if max_sem==0:
+    if max_sem==0 or max_hours<max(df['Cred_hours']):
         return "ERROR"
     breaker=0
     while True:
