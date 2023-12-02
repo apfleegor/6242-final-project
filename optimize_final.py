@@ -13,7 +13,7 @@ import math
 # FEYZI NOTE 11/30/2023: I made it return the a df so that I can display it in the graph
 
 def run( list_of_courses, min_hours, max_hours, summer=0, pr=None, df=pd.read_csv('data/credit_hours.csv')):
-    if max_hours<min_hours or max_hours<3:
+    if max_hours<min_hours or max_hours<max(df['Cred_hours']):
         return "ERROR"
     print(list_of_courses)
     pd.options.mode.chained_assignment = None
