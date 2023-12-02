@@ -12,7 +12,7 @@ function drawInteractiveLineChart(gpas, semesters,prereqs, professors) {
         let minGpa = d3.min(gpas[course][0]);
         gpas[course][0].forEach((gpa, semesterIndex) => {
             // let semesterIndex = index + 1;  // Adjust for zero-based indexing
-            let professorName = professors[course] && professors[course][semesterIndex] ? professors[course][semesterIndex]  : "Unknown";
+            let professorName = professors[course] && professors[course][0][semesterIndex] ? professors[course][0][semesterIndex]  : "Unknown";
             lowestGpa = Math.min(lowestGpa, gpa);
             highestGpa = Math.max(highestGpa, gpa);
             courseData.push({ 
@@ -27,6 +27,12 @@ function drawInteractiveLineChart(gpas, semesters,prereqs, professors) {
     });
 
 
+    function isStarred(course, semester) {
+        return semesters[course] === semester;
+    }
+    
+
+
     // Group data by course
     let dataNest = d3.nest()
         .key(function(d) { return d.course; })
@@ -34,6 +40,7 @@ function drawInteractiveLineChart(gpas, semesters,prereqs, professors) {
 
     // Dimensions and margins
     const margin = { top: 30, right: 50, bottom: 60, left: 50 };
+    // const margin = { top: 30, right: 200, bottom: 60, left: 50 };
     const width = 1100 - margin.left - margin.right;
     const height = 600 - margin.top - margin.bottom;
 
@@ -94,14 +101,23 @@ function drawInteractiveLineChart(gpas, semesters,prereqs, professors) {
         .tickFormat(d3.format('d')) // Format as integer
         .ticks(maxSemester) // Set the number of ticks to the maximum semester value
         .tickValues(d3.range(1, maxSemester + 1)) // Explicitly set tick values
-    );
+    )
+    .selectAll("text")
+    .style("font-size", "16px");
 
-    svg.append("g").call(d3.axisLeft(yScale));
+    svg.append("g")
+    .call(d3.axisLeft(yScale))
+    .selectAll("text")
+    .style("font-size", "16px");
 
     // Line generator
     const line = d3.line()
         .x(d => xScale(d.semester))
         .y(d => yScale(d.gpa));
+
+    // let starredPoints = courseData.filter(d => d.course === course && d.semester === semester)
+    // .map(d => d.course + "-" + d.semester); // Create a unique identifier for each point
+    
 
     // Draw the lines and squares for max GPA
     dataNest.forEach(function(d, i) {
@@ -115,11 +131,11 @@ function drawInteractiveLineChart(gpas, semesters,prereqs, professors) {
             .attr("fill", "none")
             .attr("d", line);
 
-        // Draw triang for max GPA
+        // Draw triangles for max GPA
         group.selectAll(".max-gpa-triangle")
             .data(d.values.filter(v => v.isMax))
             .enter().append("path")
-            .attr("d", d3.symbol().type(d3.symbolTriangle).size(150))
+            .attr("d", d3.symbol().type(d3.symbolTriangle).size(90))
             .attr("transform", function(d) { 
                 return `translate(${xScale(d.semester)}, ${yScale(d.gpa)})`; 
             })
@@ -128,11 +144,12 @@ function drawInteractiveLineChart(gpas, semesters,prereqs, professors) {
             .on("mouseout", tip.hide);
 
 
+
         // Draw circles for other points
         group.selectAll("circle")
             .data(d.values.filter(v => !v.isMax))
             .enter().append("circle")
-            .attr("r", 5)
+            .attr("r", 0.1)
             .attr("cx", function(d) { return xScale(d.semester); })
             .attr("cy", function(d) { return yScale(d.gpa); })
             .style("fill", function() { return color(d.key); })
@@ -141,17 +158,24 @@ function drawInteractiveLineChart(gpas, semesters,prereqs, professors) {
     });
 
 
+    // identify course and semesters that we take with stars
+
+
     Object.keys(semesters).forEach(course => {
         let semester = semesters[course];
         svg.selectAll(".dot")
             .data(courseData.filter(d => d.course === course && d.semester === semester))
             .enter().append("path")
-            .attr("d", d3.symbol().type(d3.symbolCross).size(250)) // Use symbolCross for "x"
+            .attr("d", d3.symbol().type(d3.symbolCross).size(300)) // Use symbolCross for "x"
             .attr("transform", d => `translate(${xScale(d.semester)}, ${yScale(d.gpa)})`)
             .attr("fill", color(course))
             .on("mouseover", tip.show)
             .on("mouseout", tip.hide);
     });
+
+
+
+    
 
 
     // Interaction: Highlight the course's line and dim others
@@ -171,7 +195,7 @@ function drawInteractiveLineChart(gpas, semesters,prereqs, professors) {
     // Add legend
     const legendEntryWidth = 100; // Width of each legend entry
     const legendEntryHeight = 18; // Height of each legend entry
-    const legendColumns = 2; // Number of columns in the legend
+    const legendColumns = 4; // Number of columns in the legend
 
 
     const legend = svg.selectAll(".legend")
@@ -185,6 +209,14 @@ function drawInteractiveLineChart(gpas, semesters,prereqs, professors) {
             const x = width*1.02 - (legendColumns - col) * legendEntryWidth;
             const y = row * legendEntryHeight - height*0.05;
             return "translate(" + x + "," + y + ")";
+
+            // Calculate row and column position
+            // const col = i % legendColumns;
+            // const row = Math.floor(i / legendColumns);
+            // // Adjust x position to place legend in the extra space
+            // const x = width + margin.right / 2 - (legendColumns - col) * legendEntryWidth;
+            // const y = row * legendEntryHeight;
+            // return "translate(" + x + "," + y + ")";
         });
 
     legend.append("rect")
@@ -201,7 +233,7 @@ function drawInteractiveLineChart(gpas, semesters,prereqs, professors) {
     svg.append("text")
         .attr("transform", "translate(" + (width/2) + " ," + (height + margin.bottom - 20) + ")")
         .style("text-anchor", "middle")
-        .text("Semester#");
+        .text("Semester Number");
 
     svg.append("text")
         .attr("transform", "rotate(-90)")

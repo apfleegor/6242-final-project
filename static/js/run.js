@@ -145,7 +145,8 @@ document.getElementById("optimize").addEventListener("click", function() {
     Each inputted class's projected GPAs are shown for every semester, with each '▲' designating \
     the semester where GPA is projected to be highest, and each '➕' designating which semester \
     is recommended, based on maximizing total GPA.\n\n Hover over each course to \
-    compare Optidule's choice to other semesters!";
+    compare Optidule's choice to other semesters! Hovering over a marked datapoint will show the max and min GPA achievable for \
+    that course, the GPA achieved by Optidule's choice, along with the professor teaching it and its pre-requisites. ";
     // console.log("Drawing graph with dummy data");
 
     // drawInteractiveLineChart(dummy_gpas, dummy_semesters, dummy_prereqs, dummy_professors);
