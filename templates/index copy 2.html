@@ -15,8 +15,20 @@
 
   <div class="container">
 
-    <div class="row" style="margin-left: 10px;">
-      <p>Explanation about what we are doing</p>
+    <div class="row" style="margin-left: 10px; font-size: 21px;">
+      <p>
+        <strong>
+          Welcome to Optidule, a scheduling tool to help you optimize your GPA!
+        </strong>
+      </p>
+    </div>
+    
+    <div class="row" style="margin-left: 10px; font-size: 17px;">
+      <p>
+        Below, input which classes you need to take for the next semester, 
+        year, or even undergraduate degree, and Optidule - based on each course's historical
+        GPA trends - will offer suggestions below on when to take the course. 
+      </p>
     </div>
 
     <div class="col-12">
@@ -63,14 +75,20 @@
 
                     <!-- Clear Classes Button -->
                     <button id="clearClasses" class="btn btn-warning ml-2">
-                      Clear
+                      Clear All
                     </button>
                   </div>
 
+                  <label class="form-label">To populate the prerequisite course menus adjacent to each course, press the button below. Then, select any required prerequisites.</label>
                   <div class="mb-3">
-                    <button id="optimize">Get Schedule</button>
                     <button id="pre_reqs">Fill Prereqs</button>
                   </div>
+
+                  <label class="form-label">After selecting courses, any required prereqs, and schedule constraints, press the button below to populate your schedule and an interactive visualization!</label>
+                  <div class="mb-3">
+                    <button id="optimize">Get Schedule</button>
+                  </div>
+
                 </div>
               </div>
             </div>
@@ -90,7 +108,7 @@
               <div class="col">
                 <div class="row">
                   <!-- First Input: Dropdown for maxPrompt -->
-                  <label for="maxPrompt" class="form-label">Maximum number of credits:</label>
+                  <label for="maxPrompt" class="form-label">Maximum number of credits:&nbsp;</label>
                   <select class="form-select" id="maxPrompt">
                     <option value="2">2</option>
                     <option value="3">3</option>
@@ -105,7 +123,7 @@
                     <option value="12" >12</option>
                     <option value="13">13</option>
                     <option value="14">14</option>
-                    <option value="15">15</option>
+                    <option value="15"selected>15</option>
                     <option value="16">16</option>
                     <option value="17">17</option>
                     <option value="18">18</option>
@@ -118,17 +136,17 @@
     
                 <div class="row">
                   <!-- Second Input: Dropdown for minPrompt -->
-                  <label for="minPrompt" class="form-label">Minimum number of credits:</label>
+                  <label for="minPrompt" class="form-label">Minimum number of credits:&nbsp;</label>
                   <select class="form-select" id="minPrompt">
                     <option value="2">2</option>
-                    <option value="3"selected>3</option>
+                    <option value="3">3</option>
                     <option value="4">4</option>
                     <option value="5">5</option>
                     <option value="6">6</option>
                     <option value="7">7</option>
                     <option value="8">8</option>
                     <option value="9">9</option>
-                    <option value="10">10</option>
+                    <option value="10"selected>10</option>
                     <option value="11">11</option>
                     <option value="12">12</option>
                     <option value="13">13</option>
@@ -145,7 +163,7 @@
     
                 <div class="row">
                   <!-- Third Input: Dropdown for summerPrompt -->
-                  <label for="summerPrompt" class="form-label">Summer courses?:</label>
+                  <label for="summerPrompt" class="form-label">Summer courses?:&nbsp;</label>
                   <select class="form-select" id="summerPrompt">
                     <option value="yes">Yes</option>
                     <option value="no">No</option>
@@ -194,9 +212,11 @@
       <div class="card-header">
         Interactive Graphs
       </div>
-      <div class="card-body">
+      <div class="card-body" >
+        <p id="Interactive_Graph"style="font-size: 19px;">
+          An interactive graph will be shown here after courses are selected, and "Get Schedule" is pressed.
+        </p>
         <div id="interactiveLineChart"></div>
-        <p id="Interactive_Graph">Interactive Graph will be displayed here.</p>
       </div>
     </div>
   </div>

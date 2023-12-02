@@ -71,7 +71,7 @@ d3.json(classes_url).then(function(data){
 
     // To limit to 8 courses inputted (to be changed)
     var courseCount = 2;
-    var MAX_CLASSES = 8;
+    var MAX_CLASSES = 40; // approximately one undergraduate degree
 
     // Function to dynamically add select box
     function addSelectionBox() {
@@ -140,7 +140,12 @@ document.getElementById("optimize").addEventListener("click", function() {
     // console.log(document.getElementById("maxPrompt").value)
 
     // code for interactive line chart
-    document.getElementById("Interactive_Graph").innerText = "Interactive Graph should now be displayed here.";
+    document.getElementById("Interactive_Graph").innerText = " \
+    The interactive graph below plots GPA against semester number. \n\n \
+    Each inputted class's projected GPAs are shown for every semester, with each '▲' designating \
+    the semester where GPA will optimal, and each '➕' designating which semester \
+    is recommended, based on maximizing total GPA.\n\n Hover over each course to \
+    compare Optidule's choice to other semesters!";
     // console.log("Drawing graph with dummy data");
 
     // drawInteractiveLineChart(dummy_gpas, dummy_semesters, dummy_prereqs, dummy_professors);
