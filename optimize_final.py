@@ -3,6 +3,7 @@ import random
 import copy
 import pulp as pp
 import math
+
 #list off all courses is the courses that the user wants to take, min and max hours are the inut params, summer is 0 if no summer and 1 if summer, and df is the overall df. I used my edited one casue its slightly better than feyzi's but anythign is up to u.
 #also added a pr term that if you want to input pre req you can. It would have to be in the format of list of lists::
 #where its in the same order as the list of courses and each list is the prereqs for that course

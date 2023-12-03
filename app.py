@@ -1,5 +1,5 @@
 from flask import Flask, render_template, jsonify, request
-from optimize import get_interactive_graph_data
+from GraphDataGetter import get_interactive_graph_data
 from optimize_final import run
 import pandas as pd
 pd.options.mode.chained_assignment = None
