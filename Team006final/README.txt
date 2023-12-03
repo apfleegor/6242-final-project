@@ -10,6 +10,7 @@ optimal course schedule.
 This README file will provide a quick guide into understanding, installing, and using OptiDule. Additionally, it is important
 to understand the purpose of the remaining files in the deliverable:
 
+
 The DOC folder
 - contains the Final Report (team006report.pdf), a descriptive and thorough dive into the motivation, experimentation, and decisions that led
   to the completed OptiDule
@@ -31,14 +32,19 @@ The CODE folder
 
 INSTALLATION
 
+To set up the OptiDule project, follow these steps:
 
-EXECUTION
+1. Clone the repository:
+   ```
+   git clone [repo-link]
+   ```
+2. Install the required Python packages:
+   ```
+   pip install -r requirements.txt
+   ```
 
-Absolutely, my guy! I'll help you fill in the Execution section of your README. Here's how it could look:
 
----
-
-## Execution
+## EXECUTION
 
 To run OptiDule:
 
