@@ -85,7 +85,6 @@ To run OptiDule:
 - Explore the `raw_data` in the `data` folder for in-depth insights into the historical GPA data used for forecasting.
 ---
 
-Feel free to adjust this as needed for your project. Let me know if you need anything else, buddy!
 License
 Licensed under the MIT License.
 
