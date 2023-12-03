@@ -59,8 +59,8 @@ To run the OptiDule application:
 
 ## Data Files
 
-- `gpa_data.csv`: Historical GPA data for courses at Georgia Tech.
-- `course_info.csv`: Information about courses, including prerequisites and credit hours.
+- `data/raw_data contents`: Historical GPA data for courses at Georgia Tech.
+- `data/ contents`: Information about courses, including prerequisites and credit hours and GPA predictions
 
 ## Contributing
 
