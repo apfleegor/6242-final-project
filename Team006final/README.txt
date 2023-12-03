@@ -18,7 +18,7 @@ The DOC folder
 
 The CODE folder
 - this contains all code required to install and run OptiDule:
-  * app.py - launches spark and "index copy 2.html", the main file containing the structural dashboard code.
+  * app.py - launches Flask and "index.html", the main file containing the structural dashboard code.
   * optimize_final.py - the optimizing script
   * static folder - holds important javascript and css files:
     - 
