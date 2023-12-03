@@ -20,7 +20,7 @@ The DOC folder
 The CODE folder
 - this contains all code required to install and run OptiDule:
   * app.py - launches Flask and "index.html", the main file containing the structural dashboard code.
-  * optimize_final.py - Contains optimize.py and optimize_final.py scripts for course schedule optimization.
+  * optimize_final.py - Contains functions to run the optimization logic and provide the interactive graph with the relevant data
   * static folder - CSS and JavaScript files for the web interface, including class data in JSON format.
     - createTable.js: Handles the dynamic creation and manipulation of the Table that displays optimized course schedules.
     - graph.js: Responsible for generating and managing the interactive graphs for visualizing GPA forecasts and course selections.
@@ -82,7 +82,7 @@ To run OptiDule:
 
 - For a detailed understanding of OptiDule's development and capabilities you can look at `team006report.pdf` in the DOC folder.
 - The `team006poster.pdf` in the same folder provides a quick, visual summary of the project.
-- Explore the `raw_data` in the `data` folder for in-depth insights into the historical GPA data used for forecasting.
+- Explore the `raw_data` in the `data` folder if you want a look at the historical GPA data used for forecasting
 ---
 
 License
