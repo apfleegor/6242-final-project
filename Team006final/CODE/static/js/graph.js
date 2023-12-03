@@ -32,7 +32,6 @@ function drawInteractiveLineChart(gpas, semesters,prereqs, professors) {
     }
     
 
-
     // Group data by course
     let dataNest = d3.nest()
         .key(function(d) { return d.course; })
@@ -94,7 +93,6 @@ function drawInteractiveLineChart(gpas, semesters,prereqs, professors) {
     const color = d3.scaleOrdinal(d3.schemeCategory10);
 
     // Add X and Y axis
-    // Add X axis
     svg.append("g")
         .attr("transform", `translate(0,${height})`)
         .call(d3.axisBottom(xScale)
@@ -114,10 +112,6 @@ function drawInteractiveLineChart(gpas, semesters,prereqs, professors) {
     const line = d3.line()
         .x(d => xScale(d.semester))
         .y(d => yScale(d.gpa));
-
-    // let starredPoints = courseData.filter(d => d.course === course && d.semester === semester)
-    // .map(d => d.course + "-" + d.semester); // Create a unique identifier for each point
-    
 
     // Draw the lines and squares for max GPA
     dataNest.forEach(function(d, i) {
@@ -143,8 +137,6 @@ function drawInteractiveLineChart(gpas, semesters,prereqs, professors) {
             .on("mouseover", tip.show)
             .on("mouseout", tip.hide);
 
-
-
         // Draw circles for other points
         group.selectAll("circle")
             .data(d.values.filter(v => !v.isMax))
@@ -157,10 +149,7 @@ function drawInteractiveLineChart(gpas, semesters,prereqs, professors) {
             .on("mouseout", tip.hide); 
     });
 
-
     // identify course and semesters that we take with stars
-
-
     Object.keys(semesters).forEach(course => {
         let semester = semesters[course];
         svg.selectAll(".dot")
@@ -172,10 +161,6 @@ function drawInteractiveLineChart(gpas, semesters,prereqs, professors) {
             .on("mouseover", tip.show)
             .on("mouseout", tip.hide);
     });
-
-
-
-    
 
 
     // Interaction: Highlight the course's line and dim others
@@ -197,7 +182,6 @@ function drawInteractiveLineChart(gpas, semesters,prereqs, professors) {
     const legendEntryHeight = 18; // Height of each legend entry
     const legendColumns = 4; // Number of columns in the legend
 
-
     const legend = svg.selectAll(".legend")
         .data(dataNest)
         .enter().append("g")
@@ -209,14 +193,6 @@ function drawInteractiveLineChart(gpas, semesters,prereqs, professors) {
             const x = width*1.02 - (legendColumns - col) * legendEntryWidth;
             const y = row * legendEntryHeight - height*0.05;
             return "translate(" + x + "," + y + ")";
-
-            // Calculate row and column position
-            // const col = i % legendColumns;
-            // const row = Math.floor(i / legendColumns);
-            // // Adjust x position to place legend in the extra space
-            // const x = width + margin.right / 2 - (legendColumns - col) * legendEntryWidth;
-            // const y = row * legendEntryHeight;
-            // return "translate(" + x + "," + y + ")";
         });
 
     legend.append("rect")

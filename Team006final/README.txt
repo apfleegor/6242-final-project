@@ -19,11 +19,70 @@ The DOC folder
 The CODE folder
 - this contains all code required to install and run OptiDule:
   * app.py - launches Flask and "index.html", the main file containing the structural dashboard code.
-  * optimize_final.py - the optimizing script
-  * static folder - holds important javascript and css files:
-    - 
+  * optimize_final.py - Contains optimize.py and optimize_final.py scripts for course schedule optimization.
+  * static folder - CSS and JavaScript files for the web interface, including class data in JSON format.
+    - createTable.js: Handles the dynamic creation and manipulation of the Table that displays optimized course schedules.
+    - graph.js: Responsible for generating and managing the interactive graphs for visualizing GPA forecasts and course selections.
+    - optimize.js: Handles the optimization logic on the user side by processing user inputs and displaying the results.
+    - run.js: Handles the interaction with the optimization backend and runs the other js files
+  * data/: Constains GPA predictions for future years along with credit hour data, and a sample dataset for courses taken by an ISYE Major
+    - raw_data: Contains raw data files on historical GPA used to generate the predictions
+  * Forecasting: Notebooks for finding optimal ARIMA parameters and making predictions using raw data for GPA forecasting.
 
 INSTALLATION
 
 
 EXECUTION
+
+Absolutely, my guy! I'll help you fill in the Execution section of your README. Here's how it could look:
+
+---
+
+## Execution
+
+To run OptiDule:
+
+1. **Start the Flask Server:**
+   - Open your terminal or command prompt.
+   - Navigate to the project's root directory where `app.py` is located.
+   - Run the command:
+     ```
+     python app.py
+     ```
+   - This will start the Flask server and host the OptiDule application locally.
+
+2. **Accessing the Dashboard:**
+   - Once the Flask server is running, open your web browser.
+   - Enter the URL that you see in the command prompt output: for example `http://127.0.0.1:8000/`
+   - This will load the OptiDule dashboard.
+
+3. **Using OptiDule:**
+   - On the dashboard, start by entering the courses you plan to take.
+   - Specify any constraints such as credit hour limits, summer courses, and prerequisites.
+   - Click on the 'Optimize Schedule' button to generate your optimized course schedule.
+   - The dashboard will display the recommended course sequence along with forecasted GPAs.
+   - You can interact with the dashboard to explore different scenarios or modify your course selections.
+
+4. **Exploring Further:**
+   - Use the interactive graphs to understand the forecasted GPA trends for each course.
+   - Hover over the graph points for detailed information about each course's predicted GPA and other relevant data.
+   - Modify your selections or constraints and re-optimize as needed to explore different scheduling options.
+
+5. **Shutting Down:**
+   - When finished, you can shut down the Flask server by returning to your terminal or command prompt.
+   - Press `CTRL + C` (on Windows) or `Command + C` (on Mac) to stop the server.
+
+## Additional Resources
+
+- For a detailed understanding of OptiDule's development and capabilities you can look at `team006report.pdf` in the DOC folder.
+- The `team006poster.pdf` in the same folder provides a quick, visual summary of the project.
+- Explore the `raw_data` in the `data` folder for in-depth insights into the historical GPA data used for forecasting.
+---
+
+Feel free to adjust this as needed for your project. Let me know if you need anything else, buddy!
+License
+Licensed under the MIT License.
+
+Acknowledgements
+Georgia Tech Institutional Research and Planning team for the data.
+Team 6: Harrison Kwon, Devanshu Tiwari, Henry Wallace, Monishka Sinha, Feyzican Eser, Alexandra Pfleegor.

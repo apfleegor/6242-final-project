@@ -46,7 +46,7 @@ To run the OptiDule application:
    ```
    python app.py
    ```
-3. Access the web interface via your browser at `http://localhost:5000`.
+3. Access the web interface via your browser at `http://127.0.0.1:8000/` or whatever address you see in the terminal.
 
 ## Project Structure
 

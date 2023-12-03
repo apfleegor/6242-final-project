@@ -129,7 +129,6 @@ Pre_reqs_by_course = { course1: [pre_req1, pre_req2, ...], course2: [pre_req1, p
 professors_by_course_by_semester = { course1: { semester1: professor, semester2: professor, ... }, course2: { semester1: professor, semester2: professor, ... }, ... }
 """
 
- 
 def get_interactive_graph_data(opt_log, df):
     # check if opt_log is a float
     if isinstance(opt_log, float):
